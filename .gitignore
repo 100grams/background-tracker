@@ -1,0 +1,9 @@
+// CocoaPods
+Podfile.lock
+Pods/
+
+BackgroundTracker.xcworkspace/xcuserdata/
+BackgroundTracker.xcodeproj/xcuserdata
+BackgroundTracker.xcodeproj/project.xcworkspace/xcuserdata
+
+.DS_Store

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BackgroundTracker/LocationTracker.swift"
+            timestampString = "515494580.342447"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "489"
+            endingLineNumber = "489"
+            landmarkName = "removeAllGeofencing()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BackgroundTracker.LocationTracker.(removeAllGeofencing in _62D92F1F3A82FE9FB457108F6F5FB6D4) () -&gt; ()"
+                  moduleName = "BackgroundTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rotem.rubnov/dev/BackgroundTracker/BackgroundTracker/LocationTracker.swift"
+                  timestampString = "515494252.729479"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "482"
+                  endingLineNumber = "482"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BackgroundTracker.LocationTracker.((removeAllGeofencing in _62D92F1F3A82FE9FB457108F6F5FB6D4) () -&gt; ()).(implicit closure #1)"
+                  moduleName = "BackgroundTracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rotem.rubnov/dev/BackgroundTracker/BackgroundTracker/LocationTracker.swift"
+                  timestampString = "515494252.730603"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "482"
+                  endingLineNumber = "482"
+                  offsetFromSymbolStart = "37">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
