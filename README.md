@@ -1,7 +1,7 @@
 BackgroundTracker
------------------
+=================
 A Sample iOS app for tracking location in the background
-========================================================
+--------------------------------------------------------
 
 Written in Swift 3 
 
