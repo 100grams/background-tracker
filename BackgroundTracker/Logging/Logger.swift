@@ -3,7 +3,7 @@
 //  Capture
 //
 //  Created by Rotem Rubnov on 06/09/16.
-//  Copyright © 2016 Capture International BV. All rights reserved.
+//  Copyright © 2016 100grams BV. All rights reserved.
 //
 
 import UIKit

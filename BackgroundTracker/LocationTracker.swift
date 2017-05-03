@@ -3,7 +3,7 @@
 //  Capture
 //
 //  Created by Rotem Rubnov on 19/08/16.
-//  Copyright © 2016 Capture International BV. All rights reserved.
+//  Copyright © 2016 100grams BV. All rights reserved.
 //
 
 import UIKit
@@ -284,7 +284,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    static let MinAccuracy : CLLocationAccuracy = 250
+    static let MinAccuracy : CLLocationAccuracy = 100
     
     func processNewLocation(_ loc : CLLocation) -> Bool {
         
