@@ -350,7 +350,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                 isStationary = averageSpeed < LocationTracker.StationarySpeed
             }
             
-            Logger.log.verbose("\(isStationary): average speed =  \(averageSpeed*3.6) kph, moving distance \(diagonal) in the last \(period) seconds (\(lastLocations.count) locations)")
+            Logger.log.verbose("\(isStationary): average speed =  \((averageSpeed*3.6).format(".2")) kph, moving distance \(diagonal.format(".2")) in the last \(period.format(".0")) seconds (\(lastLocations.count) locations)")
             
             return isStationary;
         }
@@ -496,5 +496,12 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
 
     
 
+}
+
+
+extension Double {
+    func format(_ f: String) -> String {
+        return String(format: "%\(f)f", self)
+    }
 }
 
