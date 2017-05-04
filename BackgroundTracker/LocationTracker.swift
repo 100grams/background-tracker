@@ -55,7 +55,8 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         
         NotificationCenter.default.addObserver(self, selector:#selector(appDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(appWillResignActive), name: .UIApplicationWillResignActive, object: nil)
-        
+     
+        Logger.log.verbose("initialized!")
     }
     
     // MARK: - Tracking Location
@@ -84,13 +85,13 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     }
 
     func startTrackingLocation() {
-    
-        Logger.log.verbose("")
-    
+        
         if CLLocationManager.authorizationStatus() == .notDetermined || CLLocationManager.authorizationStatus() == .restricted {
+            Logger.log.verbose("Requesting Authorization...")
             locationManager.requestAlwaysAuthorization()
         }
         else if CLLocationManager.authorizationStatus() != .denied {
+            Logger.log.verbose("")
             locationManager.startUpdatingLocation()
             startLocationTrackingTimer(withInterval: locationTrackingInterval)
         }
@@ -466,7 +467,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
 
         let geofenceCurrent = geofenceLocations["CurrentLocation"]
 
-        if force || geofenceCurrent == nil || (geofenceCurrent?.distance(from: location) ?? 0) > 100 {
+        if force || geofenceCurrent == nil || (geofenceCurrent?.distance(from: location) ?? 0) > 250 {
     
             // user moved since last "CurrentLocation" geofencing
             addGeofencingWithName("CurrentLocation", location:location, radius:radius.rawValue, notify:.Exit)
