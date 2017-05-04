@@ -17,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         Logger.start()
+        
+        if (launchOptions?[.location]) != nil {
+            Logger.log.verbose("launched with location key")
+            LocationTracker.sharedInstance.trackingEnabled = true
+        }
+        
         return true
     }
 

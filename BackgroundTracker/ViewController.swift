@@ -24,7 +24,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
         let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination", textView: textView)
         
-        textViewDestination.outputLevel = .verbose
+        textViewDestination.outputLevel = .debug
         textViewDestination.showLogIdentifier = false
         textViewDestination.showFunctionName = true
         textViewDestination.showThreadName = false

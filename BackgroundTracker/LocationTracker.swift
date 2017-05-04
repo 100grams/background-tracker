@@ -48,10 +48,10 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.activityType = .automotiveNavigation
         if #available(iOS 9.0, *) {
             locationManager.allowsBackgroundLocationUpdates = true
         }
-        locationManager.activityType = .fitness
         
         NotificationCenter.default.addObserver(self, selector:#selector(appDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(appWillResignActive), name: .UIApplicationWillResignActive, object: nil)
@@ -112,7 +112,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         Logger.log.verbose("")
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.activityType = .fitness
+        locationManager.activityType = .automotiveNavigation
     }
     
     func setLowAccuracy() {
@@ -123,7 +123,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         #if !(TARGET_IPHONE_SIMULATOR)
             locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
             locationManager.distanceFilter = 99999
-            locationManager.activityType = .other
+//            locationManager.activityType = .other
         #endif
     }
 
@@ -269,26 +269,36 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let loc = locations.last!
-        if self.locations.count > 0 && loc.timestamp.timeIntervalSince(self.locations.last!.timestamp) < 2 {
-            // This method is called in "bursts", passing the exact same location
-            // multiple times per second. This check is here to avoid doing any processing
-            // on locations received with less than 1 second interval.
-            return;
+        if let newLoc = locations.last,
+            let lastLoc = self.locations.last {
+            
+            if newLoc.timestamp.timeIntervalSince(lastLoc.timestamp) < 2 {
+                // This method is called in "bursts", passing the exact same location
+                // multiple times per second. This check is here to avoid doing any processing
+                // on locations received with less than 1 second interval.
+                return;
+            }
+            else if newLoc.timestamp.timeIntervalSince(lastLoc.timestamp) > 1.25 * locationTrackingInterval {
+                Logger.log.error("Locations recorded too far apart!")
+            }
         }
 
-        Logger.log.verbose("<wpt lat=\"\(loc.coordinate.latitude)\" lon=\"\(loc.coordinate.longitude)\"><time>\(loc.timestamp)</time></wpt> ( hor. acc \(loc.horizontalAccuracy), speed \(loc.speed))")
-     
-        if processNewLocation(loc) {
-//            setLowAccuracy()
+        if processNewLocations(locations) {
+            setLowAccuracy()
         }
     }
 
     static let MinAccuracy : CLLocationAccuracy = 100
     
-    func processNewLocation(_ loc : CLLocation) -> Bool {
+    func processNewLocations(_ locs : [CLLocation]) -> Bool {
         
-        locations.append(loc)
+        var logMessages = [String]()
+        for loc in locs {
+            logMessages.append("<wpt lat=\"\(loc.coordinate.latitude)\" lon=\"\(loc.coordinate.longitude)\"><time>\(loc.timestamp)</time></wpt> ( hor. acc \(loc.horizontalAccuracy), speed \(loc.speed))")
+        }
+        Logger.log.debug(logMessages.joined(separator: "\n"))
+        
+        locations += locs
         if isStationary {
             // stop location tracking
             trackingEnabled = false
@@ -300,6 +310,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             uploadLastLocation()
         }
         
+        guard let loc = locations.last else { return false }
         return loc.horizontalAccuracy < LocationTracker.MinAccuracy
     }
     
@@ -386,6 +397,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         
         let rule = region.notifyOnExit ? "EXIT" : region.notifyOnEntry ? "ENTRY" : ""
         var stateName = ""
+        var warning : String?
         switch state {
         case .inside:
             stateName = "INSIDE"
@@ -399,7 +411,19 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                 // hence we will never be notified about EXITING that region, and the app will not
                 // continue tracking locations. In this case we must update the geofencing
                 // to update the "CurrentLocation" region.
-                updateGeofencingForCurrentLocationIfNeeded(force: true)
+                var distance = GeofencDistance.Short
+                if let d = (region as? CLCircularRegion)?.radius {
+                    if let failedDistance = GeofencDistance(rawValue: d) {
+                        switch failedDistance {
+                        case .Short:
+                            distance = .Medium
+                        default:
+                            distance = .Long
+                        }
+                        warning = "Replaced geofencing for \(failedDistance) with \(distance)"
+                    }
+                }
+                updateGeofencingForCurrentLocationIfNeeded(force: true, radius: distance)
             }
         case .unknown:
             stateName = "UNKNOWN"
@@ -410,6 +434,9 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         }
         
         Logger.log.verbose("Geofencing state for \(rule) region \(region.identifier) is: \(stateName)")
+        if let message = warning {
+            Logger.log.warning(message)
+        }
     }
 
     // MARK: - Geofencing
@@ -422,10 +449,15 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
 
     var geofenceLocations = [String:CLLocation]()
     
-    static let kGeofencingDistance : CLLocationDistance = 150
+    enum GeofencDistance : CLLocationDistance {
+        case Short = 50
+        case Medium = 150
+        case Long = 300
+    }
+    
     static let kDateLastBackgroundRefreshWarningShown = "LastBackgroundRefreshWarningDate"
     
-    func updateGeofencingForCurrentLocationIfNeeded (force : Bool) {
+    func updateGeofencingForCurrentLocationIfNeeded (force : Bool, radius : LocationTracker.GeofencDistance = .Short) {
         
         guard let location = locations.last else {
             Logger.log.warning("no location found!")
@@ -437,12 +469,8 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         if force || geofenceCurrent == nil || (geofenceCurrent?.distance(from: location) ?? 0) > 100 {
     
             // user moved since last "CurrentLocation" geofencing
-            
-            addGeofencingWithName("CurrentLocation", location:location, radius:LocationTracker.kGeofencingDistance, notify:.Exit)
+            addGeofencingWithName("CurrentLocation", location:location, radius:radius.rawValue, notify:.Exit)
         
-        } else {
-            
-            Logger.log.debug("No need to update geofence")
         }
     }
     
