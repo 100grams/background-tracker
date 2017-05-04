@@ -334,7 +334,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                     if diagonal > LocationTracker.StationaryDistace {
                         break
                     }
-                    else if period >= LocationTracker.StationaryInterval  {q
+                    else if period >= LocationTracker.StationaryInterval  {
                         hasEnoughData = true
                         break
                     }
