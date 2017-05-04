@@ -334,23 +334,23 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                     if diagonal > LocationTracker.StationaryDistace {
                         break
                     }
-                    else if period >= LocationTracker.StationaryInterval ||  lastLocations.count >= 10 {
+                    else if period >= LocationTracker.StationaryInterval  {q
                         hasEnoughData = true
                         break
                     }
                 }
             }
             
-            var averageSpeed : CLLocationSpeed = 0
+            let averageSpeed : CLLocationSpeed = period > 0 ? diagonal / period : 0
             if hasEnoughData == false {
                 isStationary = false
             }
             else{
-                averageSpeed = diagonal / period
                 isStationary = averageSpeed < LocationTracker.StationarySpeed
             }
             
-            Logger.log.verbose("\(isStationary): average speed =  \((averageSpeed*3.6).format(".2")) kph, moving distance \(diagonal.format(".2")) in the last \(period.format(".0")) seconds (\(lastLocations.count) locations)")
+            let kph = averageSpeed * 3.6
+            Logger.log.verbose("\(isStationary): average speed =  \(kph.format(".2")) kph, moving distance \(diagonal.format(".2")) in the last \(period.format(".0")) seconds (\(lastLocations.count) locations)")
             
             return isStationary;
         }
