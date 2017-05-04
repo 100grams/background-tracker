@@ -280,7 +280,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         Logger.log.verbose("<wpt lat=\"\(loc.coordinate.latitude)\" lon=\"\(loc.coordinate.longitude)\"><time>\(loc.timestamp)</time></wpt> ( hor. acc \(loc.horizontalAccuracy), speed \(loc.speed))")
      
         if processNewLocation(loc) {
-            setLowAccuracy()
+//            setLowAccuracy()
         }
     }
 
