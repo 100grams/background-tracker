@@ -386,6 +386,8 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         Logger.log.verbose("locationManager - monitoringDidFailForRegion \(region!.identifier) Error: \(error)")
+        removeAllGeofencing()
+        updateGeofencingForCurrentLocationIfNeeded(force: false)
     }
     
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
