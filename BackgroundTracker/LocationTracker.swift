@@ -53,6 +53,22 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             locationManager.allowsBackgroundLocationUpdates = true
         }
         
+        /*
+         "Lastly, I will tell you that the exact behavior of background location
+         updates varies significantly depending on what other monitoring APIs are
+         active.  If you experiment with our other location APIs (for example,
+         significant location updates), I believe you’ll discover that
+         startUpdatingLocation will allow continual monitoring in situations where it
+         previously did not."
+                        
+                                             Kevin Elliott
+                                             DTS Engineer
+                                             kevin_elliott@apple.com
+         
+         */
+        locationManager.startMonitoringSignificantLocationChanges()
+
+        
         NotificationCenter.default.addObserver(self, selector:#selector(appDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(appWillResignActive), name: .UIApplicationWillResignActive, object: nil)
      
@@ -93,7 +109,6 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         else if CLLocationManager.authorizationStatus() != .denied {
             Logger.log.verbose("")
             locationManager.startUpdatingLocation()
-            startLocationTrackingTimer(withInterval: locationTrackingInterval)
         }
     }
     
@@ -103,65 +118,14 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
 
         stopBackgroundTask()
         locationManager.stopUpdatingLocation()
-        stopLocationTrackingTimer()
     }
-
-    
-    func setHighAccuracy() {
-
-        // throttle up GPS hardware to get maximum accuracy while tracking
-        Logger.log.verbose("")
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.activityType = .automotiveNavigation
-    }
-    
-    func setLowAccuracy() {
-
-        // allow iOS to throttle down GPS hardware and save battery
-        // while keeping location updates ENABLED
-        Logger.log.verbose("");
-        #if !(TARGET_IPHONE_SIMULATOR)
-            locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-            locationManager.distanceFilter = 99999
-//            locationManager.activityType = .other
-        #endif
-    }
-
-    func startLocationTrackingTimer(withInterval interval:TimeInterval) {
-        
-        if bgTimer?.timeInterval != interval {
-            stopLocationTrackingTimer()
-            if (interval > 0) {
-                bgTimer = Timer.scheduledTimer(timeInterval: interval, target:self, selector:#selector(readLocation(fromTimer:)), userInfo:nil, repeats:true);
-                if let timer = bgTimer {
-                    Logger.log.verbose("\(timer) interval \(interval) seconds");
-                }
-                else{
-                    Logger.log.error("FATAL could not create background tracking timer!")
-                }
-                setHighAccuracy() // read one location now
-            }
-        }
-    }
-    
-    func stopLocationTrackingTimer() {
-        if let timer = bgTimer {
-            Logger.log.verbose("\(timer)");
-            timer.invalidate()
-            bgTimer = nil
-        }
-    }
-    
     
 
 
     // MARK: - Backgrounding
     
-    var bgTimer : Timer?
     var bgTaskCount = 0
     var bgTaskId : UIBackgroundTaskIdentifier?
-    var locationTrackingInterval = kDefaultTrackingInterval; // default interval for tracking locations in the background
     
     var lastLocationUploadTime = NSDate.distantPast
     
@@ -185,17 +149,6 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                 Logger.log.debug("Starting background task \(task). Background time remaining: \(UIApplication.shared.backgroundTimeRemaining)")
             }
             
-            /*
-             * Noramlly the location accuracy requested from CLLocationManager is low.
-             * This effectively throttles down GPS and saves battery, while keeping location tracking enabled
-             * and the background task running with indefinite time for expiration.
-             */
-            if bgTimer == nil {
-                startLocationTrackingTimer(withInterval: locationTrackingInterval)
-            }
-            if bgTimer != nil {
-                setHighAccuracy()
-            }
         }
     }
 
@@ -218,7 +171,6 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         if trackingEnabled == true {
 
             startBackgroundTask()
-            Logger.log.verbose("appWillResignActive -- tracking interval: \(self.locationTrackingInterval)");
         }
         else{
             trackingEnabled = false;
@@ -236,24 +188,6 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     }
     
     
-    func readLocation (fromTimer timer : Timer) {
-        
-        if bgTaskId != nil {
-            Logger.log.verbose("tracking timer fired! background task \(self.bgTaskId!) time remaining: \(UIApplication.shared.backgroundTimeRemaining)")
-        }
-        
-        if trackingEnabled == true {
-            
-            // trigger location update by increasing the accuracy
-            setHighAccuracy()
-        }
-        else{
-            Logger.log.debug("tracking disabled")
-        }
-        
-        
-    }
-    
     // MARK: - CLLocationManagerDelegate
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -270,23 +204,23 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        if let newLoc = locations.last,
-            let lastLoc = self.locations.last {
-            
-            if newLoc.timestamp.timeIntervalSince(lastLoc.timestamp) < 2 {
-                // This method is called in "bursts", passing the exact same location
-                // multiple times per second. This check is here to avoid doing any processing
-                // on locations received with less than 1 second interval.
-                return;
+        if processNewLocations(locations) {
+
+            if isStationary {
+                // stop location tracking
+                trackingEnabled = false
+                updateGeofencingForCurrentLocationIfNeeded(force: true)
             }
-            else if newLoc.timestamp.timeIntervalSince(lastLoc.timestamp) > 1.25 * locationTrackingInterval {
-                Logger.log.error("Locations recorded too far apart!")
+            else {
+                updateGeofencingForCurrentLocationIfNeeded(force: false)
+                maybeStartBackgroundTask()
             }
+        }
+        
+        if NSDate().timeIntervalSince(lastLocationUploadTime) >= LocationTracker.kDefaultLocationUploadInterval {
+            uploadLastLocation()
         }
 
-        if processNewLocations(locations) {
-            setLowAccuracy()
-        }
     }
 
     static let MinAccuracy : CLLocationAccuracy = 100
@@ -296,23 +230,20 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         var logMessages = [String]()
         for loc in locs {
             logMessages.append("<wpt lat=\"\(loc.coordinate.latitude)\" lon=\"\(loc.coordinate.longitude)\"><time>\(loc.timestamp)</time></wpt> ( hor. acc \(loc.horizontalAccuracy), speed \(loc.speed))")
+            
         }
         Logger.log.debug(logMessages.joined(separator: "\n"))
-        
-        locations += locs
-        if isStationary {
-            // stop location tracking
-            trackingEnabled = false
-        }
 
-        updateGeofencingForCurrentLocationIfNeeded(force: false)
-
-        if NSDate().timeIntervalSince(lastLocationUploadTime) >= LocationTracker.kDefaultLocationUploadInterval {
-            uploadLastLocation()
-        }
+        let filteredLocations = locs.filter { $0.horizontalAccuracy <= LocationTracker.MinAccuracy }
         
-        guard let loc = locations.last else { return false }
-        return loc.horizontalAccuracy < LocationTracker.MinAccuracy
+        if filteredLocations.count > 0 {
+            locations += filteredLocations
+            return true
+        }
+        else{
+            Logger.log.warning("No accurate locations received. Discarding.")
+            return false
+        }
     }
     
     func uploadLastLocation() {
@@ -371,17 +302,15 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         Logger.log.verbose("locationManager - Geofencing didExitRegion \(region.identifier) center (\((region as! CLCircularRegion).center.latitude), \((region as! CLCircularRegion).center.longitude))")
         trackingEnabled = true;
-        setHighAccuracy()
         removeAllGeofencing()
+        maybeStartBackgroundTask()
+    }
+    
+    func maybeStartBackgroundTask() {
         if  UIApplication.shared.applicationState != .active,
             bgTaskId == nil || bgTaskId == UIBackgroundTaskInvalid {
             startBackgroundTask() // allow background location tracking
         }
-    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        setHighAccuracy()
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
@@ -468,7 +397,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
 
         let geofenceCurrent = geofenceLocations["CurrentLocation"]
 
-        if force || geofenceCurrent == nil || (geofenceCurrent?.distance(from: location) ?? 0) > 250 {
+        if force || geofenceCurrent == nil || (geofenceCurrent?.distance(from: location) ?? 0) > 150 {
     
             // user moved since last "CurrentLocation" geofencing
             addGeofencingWithName("CurrentLocation", location:location, radius:radius.rawValue, notify:.Exit)
