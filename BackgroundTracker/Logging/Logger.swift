@@ -13,7 +13,7 @@ import SSZipArchive
 class Logger: NSObject {
 
     // Create a logger object with no destinations
-    static let log = XCGLogger(identifier: "captureCameraLogger", includeDefaultDestinations: false)
+    static let log = XCGLogger(identifier: "trackerLogger", includeDefaultDestinations: false)
     
     class func start() {
         
@@ -32,7 +32,7 @@ class Logger: NSObject {
         Logger.log.add(destination: systemLogDestination)
         
         // Create a file log destination
-        let fileLogDestination = FileDestination(owner: Logger.log, writeToFile: Logger.defaultLogFile(), identifier: "TrackerLogger.fileLogDestination")
+        let fileLogDestination = AutoRotatingFileDestination(owner: Logger.log, writeToFile: Logger.defaultLogFile(), identifier: "TrackerLogger.fileLogDestination")
         
         fileLogDestination.outputLevel = .verbose
         fileLogDestination.showLogIdentifier = false
@@ -53,12 +53,23 @@ class Logger: NSObject {
 
     }
     
+    static let logBaseFileName = "/tracker.log"
+    
     static var logDirectory: String {
-        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let url = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/logs")
+        if FileManager.default.fileExists(atPath: url.path) == false {
+            do {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+            }
+            catch {
+                Logger.log.error(error)
+            }
+        }
+        return url.path
     }
     
     class func defaultLogFile() -> String {
-        return logDirectory + "/tracker.log"
+        return logDirectory + logBaseFileName
     }
     
     class func zippedLogFileName() -> String? {

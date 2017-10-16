@@ -21,10 +21,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     
     var lastLocation : CLLocation? {
         get {
-            if locations.count > 0 {
-                return locations.last!
-            }
-            return nil
+            return locations.last
         }
     }
  
@@ -35,10 +32,14 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     static let kDefaultLocationUploadInterval = 120 as TimeInterval  // seconds
 //    static let kDefaultLocationUploadInterval = 10 as NSTimeInterval  // seconds
     
-    static let StationaryDistace = 150 as CLLocationDistance    // meters
-    static let StationaryInterval = 180 as TimeInterval         // seconds
-//    static let StationaryInterval = 10 as NSTimeInterval        // TEST
-    static let StationarySpeed = 0.85 as CLLocationSpeed        // meters per second
+    /**
+     
+     The timestamp of the last ``locationManager:didExitRegion:`` invocation.
+     This timestamp is used during pre-checkin phase to ensure that only locations received _after_ this time are considered for stationary detection.
+     
+     This variable is reset to nil in ``addGeofence:identifier:location:radius:notify``, i.e. when a new geofence region is set.
+     */
+    var lastTimeDidExitRegion : Date?
 
     // MARK: - Initialization
 
@@ -53,44 +54,31 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             locationManager.allowsBackgroundLocationUpdates = true
         }
         
-        /*
-         "Lastly, I will tell you that the exact behavior of background location
-         updates varies significantly depending on what other monitoring APIs are
-         active.  If you experiment with our other location APIs (for example,
-         significant location updates), I believe you’ll discover that
-         startUpdatingLocation will allow continual monitoring in situations where it
-         previously did not."
-                        
-                                             Kevin Elliott
-                                             DTS Engineer
-                                             kevin_elliott@apple.com
-         
-         */
-        locationManager.startMonitoringSignificantLocationChanges()
-
-        
         NotificationCenter.default.addObserver(self, selector:#selector(appDidBecomeActive), name: .UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(appWillResignActive), name: .UIApplicationWillResignActive, object: nil)
      
         Logger.log.verbose("initialized!")
     }
     
-    // MARK: - Tracking Location
+    // MARK: - Start/Stop Tracking
     
     var trackingEnabled : Bool? {
         
         didSet {
             if trackingEnabled==true {
                 startTrackingLocation()
+                locationManager.startMonitoringSignificantLocationChanges()
             }
             else{
                 stopTrackingLocation()
-                // clean locations array, keeping only the last location
+                locationManager.stopMonitoringSignificantLocationChanges()
+
                 let loc = locations.last
                 locations.removeAll()
                 if loc != nil {
                     locations.append(loc!)
                 }
+
             }
         }
     }
@@ -136,6 +124,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         bgTaskId = UIApplication.shared.beginBackgroundTask(withName: String(format:"BgTask %ld", bgTaskCount), expirationHandler: { [weak self] in
             if let task = self?.bgTaskId {
                 Logger.log.verbose("Background task \(task) expired!")
+                self?.updateGeofence(name: "CurrentLocation", location: nil)
             }
             self?.stopBackgroundTask()
         })
@@ -206,26 +195,27 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         
         if processNewLocations(locations) {
 
-            if isStationary {
-                // stop location tracking
-                trackingEnabled = false
-                updateGeofencingForCurrentLocationIfNeeded(force: true)
-            }
-            else {
-                updateGeofencingForCurrentLocationIfNeeded(force: false)
-                maybeStartBackgroundTask()
+            if let location = LocationTracker.stationary(locations: self.locations) {
+                
+                updateGeofence(name: "CurrentLocation", location: location)
+                if NSDate().timeIntervalSince(lastLocationUploadTime) >= LocationTracker.kDefaultLocationUploadInterval {
+                    uploadLastLocation()
+                }
+                else {
+                    trackingEnabled = false
+                }
             }
         }
         
-        if NSDate().timeIntervalSince(lastLocationUploadTime) >= LocationTracker.kDefaultLocationUploadInterval {
-            uploadLastLocation()
-        }
 
     }
 
-    static let MinAccuracy : CLLocationAccuracy = 100
-    
+    static let DesiredAccuracy : CLLocationAccuracy = 200
+    var isSettingGeofencing = false
+
     func processNewLocations(_ locs : [CLLocation]) -> Bool {
+        
+        // filter raw locations, then further process filtered locations
         
         var logMessages = [String]()
         for loc in locs {
@@ -233,15 +223,21 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             
         }
         Logger.log.debug(logMessages.joined(separator: "\n"))
-
-        let filteredLocations = locs.filter { $0.horizontalAccuracy <= LocationTracker.MinAccuracy }
+        
+        let filteredLocations = locs.filter {
+            let isAccurate = $0.horizontalAccuracy <= LocationTracker.DesiredAccuracy
+            if let lastTimestamp = lastLocation?.timestamp {
+                return $0.timestamp > lastTimestamp && isAccurate
+            }
+            return isAccurate
+        }
         
         if filteredLocations.count > 0 {
             locations += filteredLocations
             return true
         }
         else{
-            Logger.log.warning("No accurate locations received. Discarding.")
+            Logger.log.info("No new accurate locations received. Discarding.")
             return false
         }
     }
@@ -252,135 +248,132 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         // TODO
     }
     
-    var isStationary : Bool {
- 
-        get {
-            var isStationary = true
-            
-            var lastLocations = [CLLocation]()
-            var period = 0 as TimeInterval
-            var hasEnoughData = false
-            var diagonal = 0 as CLLocationDistance
-            guard var prevTimestamp = locations.last?.timestamp else {
-                return true
-            }
-            
-            for loc in locations.reversed() {
-                
-                period = period + prevTimestamp.timeIntervalSince(loc.timestamp)
-                prevTimestamp = loc.timestamp;
-                
-                lastLocations.append(loc)
-                if lastLocations.count > 1 {
-                    
-                    diagonal = CoordinateBounds.boundsWithLocations(lastLocations)!.diagonal
-                    if diagonal > LocationTracker.StationaryDistace {
-                        break
-                    }
-                    else if period >= LocationTracker.StationaryInterval  {
-                        hasEnoughData = true
-                        break
-                    }
-                }
-            }
-            
-            let averageSpeed : CLLocationSpeed = period > 0 ? diagonal / period : 0
-            if hasEnoughData == false {
-                isStationary = false
-            }
-            else{
-                isStationary = averageSpeed < LocationTracker.StationarySpeed
-            }
-            
-            let kph = averageSpeed * 3.6
-            Logger.log.verbose("\(isStationary): average speed =  \(kph.format(".2")) kph, moving distance \(diagonal.format(".2")) in the last \(period.format(".0")) seconds (\(lastLocations.count) locations)")
-            
-            return isStationary;
-        }
-    }
     
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        Logger.log.verbose("locationManager - Geofencing didExitRegion \(region.identifier) center (\((region as! CLCircularRegion).center.latitude), \((region as! CLCircularRegion).center.longitude))")
-        trackingEnabled = true;
-        removeAllGeofencing()
-        maybeStartBackgroundTask()
-    }
-    
-    func maybeStartBackgroundTask() {
-        if  UIApplication.shared.applicationState != .active,
-            bgTaskId == nil || bgTaskId == UIBackgroundTaskInvalid {
-            startBackgroundTask() // allow background location tracking
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        Logger.log.verbose("locationManager - monitoringDidFailForRegion \(region!.identifier) Error: \(error)")
-        updateGeofencingForCurrentLocationIfNeeded(force: true)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        let rule = region.notifyOnExit ? "EXIT" : region.notifyOnEntry ? "ENTRY" : ""
-        let cr = region as! CLCircularRegion
-        Logger.log.verbose("Started Geofencing \(rule) for region \(region.identifier) (\(cr.center.latitude),\(cr.center.longitude)) radius \(cr.radius)")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-        
-        let rule = region.notifyOnExit ? "EXIT" : region.notifyOnEntry ? "ENTRY" : ""
-        var stateName = ""
-        var warning : String?
-        switch state {
-        case .inside:
-            stateName = "INSIDE"
-        case .outside:
-            stateName = "OUTSIDE"
-            if region.notifyOnExit == true &&
-                region.identifier == "CurrentLocation" {
-                // We need "CurrentLocation" EXIT event in order to keep the app
-                // running in the background via didExitRegion callbacks.
-                // However, we are already OUTSIDE of the monitored region for "CurrentLocation"
-                // hence we will never be notified about EXITING that region, and the app will not
-                // continue tracking locations. In this case we must update the geofencing
-                // to update the "CurrentLocation" region.
-                var distance = GeofencDistance.Short
-                if let d = (region as? CLCircularRegion)?.radius {
-                    if let failedDistance = GeofencDistance(rawValue: d) {
-                        switch failedDistance {
-                        case .Short:
-                            distance = .Medium
-                        default:
-                            distance = .Long
-                        }
-                        warning = "Replaced geofencing for \(failedDistance) with \(distance)"
-                    }
-                }
-                updateGeofencingForCurrentLocationIfNeeded(force: true, radius: distance)
-            }
-        case .unknown:
-            stateName = "UNKNOWN"
-            if region.identifier == "CurrentLocation" {
-                removeAllGeofencing()
-                updateGeofencingForCurrentLocationIfNeeded(force: false)
-            }
-        }
-        
-        Logger.log.verbose("Geofencing state for \(rule) region \(region.identifier) is: \(stateName)")
-        if let message = warning {
-            Logger.log.warning(message)
-        }
-    }
+}
 
-    // MARK: - Geofencing
+
+
+// MARK: - Is Stationary?
+
+extension LocationTracker {
+    
+    static let StationaryDistace = 150 as CLLocationDistance    // meters
+    static let StationaryInterval = 60 as TimeInterval         // seconds
+    static let StationarySpeed = 0.85 as CLLocationSpeed        // meters per second
+    
+    /**
+     
+     Determine if an array of locations represents stationary movement at a specific time interval.
+     If ``after`` is provided, only locations with timestamp later than ``after`` will be considered.
+     
+     - parameter locations:   the locations array to evaluate.
+     - parameter interval:    locations will be collected based on their timestamp, until ``interval`` is satisfied, and then evaluated based on bounding box.
+     - parameter after:       ignore locations before this timestamp. Pass nil to consider all locations (until ``interval`` is met).
+     
+     - returns: the stationary location from an array, if found
+     
+     */
+    public class func stationary(locations:[CLLocation], interval:TimeInterval = LocationTracker.StationaryInterval, after:Date? = nil) -> CLLocation? {
+        
+        var lastLocations = [CLLocation]()
+        var period = 0 as TimeInterval
+        var hasEnoughData = false
+        var diagonal = 0 as CLLocationDistance
+        guard var prevTimestamp = locations.last?.timestamp else {
+            return nil
+        }
+        
+        var validLocations = [CLLocation]()
+        if let after = after {
+            validLocations = locations.filter { $0.timestamp > after }
+        }
+        else{
+            validLocations = locations
+        }
+        
+        for loc in validLocations.reversed() {
+            
+            period = period + prevTimestamp.timeIntervalSince(loc.timestamp)
+            prevTimestamp = loc.timestamp;
+            
+            lastLocations.append(loc)
+            if lastLocations.count > 1 {
+                
+                if let bounds = CoordinateBounds(locations:lastLocations) {
+                    diagonal = bounds.diagonal
+                }
+                
+                if diagonal > LocationTracker.StationaryDistace {
+                    break
+                }
+                else if period >= interval  {
+                    hasEnoughData = true
+                    break
+                }
+            }
+        }
+        
+        var isStationary = false
+        var stationaryLocation : CLLocation?
+        let averageSpeed : CLLocationSpeed = period > 0 ? diagonal / period : 0
+        if hasEnoughData {
+            isStationary = averageSpeed < LocationTracker.StationarySpeed
+            if  isStationary {
+                // most recent accurate location is considered the stationary location
+                var markerLoc : CLLocation?
+                if let veryAccurateLocation = lastLocations.first(where: {$0.horizontalAccuracy <= 10}) {
+                    markerLoc = veryAccurateLocation
+                }
+                else if let accurateLocation = lastLocations.first(where: {$0.horizontalAccuracy <= 65}) {
+                    markerLoc = accurateLocation
+                }
+                else {
+                    markerLoc = lastLocations.first
+                }
+                
+                if markerLoc != nil {
+                    // determine the arrival location to the stationary point
+                    if let earliest = lastLocations.index(where: { $0.distance(from: markerLoc!) > 5 && $0.timestamp < markerLoc!.timestamp }) {
+                        stationaryLocation = lastLocations[earliest]
+                    }
+                    else {
+                        stationaryLocation = markerLoc
+                    }
+                }
+            }
+        }
+        
+        let kph = averageSpeed * 3.6
+        if isStationary {
+            Logger.log.info("isStationary \(isStationary): average speed =  \(kph.format(".2")) kph, moving distance \(diagonal.format(".2")) in the last \(period.format(".0")) seconds (\(lastLocations.count) locations)")
+        }
+        else {
+            Logger.log.info("isStationary \(isStationary): average speed =  \(kph.format(".2")) kph, moving distance \(diagonal.format(".2")) in the last \(period.format(".0")) seconds (\(lastLocations.count) locations)")
+        }
+        
+        return stationaryLocation
+        
+    }
+    
+    func departureLocation(from location : CLLocation) -> CLLocation? {
+        return locations.first(where: { $0.distance(from: location) > LocationTracker.StationaryDistace })
+    }
+    
+}
+
+
+
+// MARK: - Geofencing
+
+extension LocationTracker {
     
     enum GeofenceNotify : Int {
         case None
         case Entry
         case Exit
     }
-
-    var geofenceLocations = [String:CLLocation]()
     
-    enum GeofencDistance : CLLocationDistance {
+    @objc enum GeofenceDistance : Int {
         case Short = 50
         case Medium = 150
         case Long = 300
@@ -388,25 +381,24 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     
     static let kDateLastBackgroundRefreshWarningShown = "LastBackgroundRefreshWarningDate"
     
-    func updateGeofencingForCurrentLocationIfNeeded (force : Bool, radius : LocationTracker.GeofencDistance = .Short) {
+    fileprivate func updateGeofence (name: String, location: CLLocation?, force : Bool = false, radius : LocationTracker.GeofenceDistance = .Medium) {
         
-        guard let location = locations.last else {
-            Logger.log.warning("no location found!")
+        guard let loc = location ?? lastLocation else {
+            Logger.log.warning("no last location!")
             return
         }
-
-        let geofenceCurrent = geofenceLocations["CurrentLocation"]
-
-        if force || geofenceCurrent == nil || (geofenceCurrent?.distance(from: location) ?? 0) > 150 {
-    
-            // user moved since last "CurrentLocation" geofencing
-            addGeofencingWithName("CurrentLocation", location:location, radius:radius.rawValue, notify:.Exit)
         
+        let existing = existingGeofence(name: name) as? CLCircularRegion
+        if force || existing == nil || existing?.contains(loc.coordinate) == false {
+            addGeofence(name, location:loc, radius:CLLocationDistance(max(loc.horizontalAccuracy, CLLocationAccuracy(radius.rawValue))), notify:.Exit)
+        }
+        else if let region = existing {
+            Logger.log.debug("geofencing exists: \(region.identifier), (\(region.center.latitude),\(region.center.longitude)) \(region.radius)m")
         }
     }
     
-    func addGeofencingWithName (_ identifier : String, location: CLLocation, radius : CLLocationDistance, notify : GeofenceNotify) {
-    
+    fileprivate func addGeofence (_ identifier : String, location: CLLocation, radius : CLLocationDistance, notify : GeofenceNotify) {
+        
         let region = CLCircularRegion(center: location.coordinate, radius: radius, identifier: identifier)
         
         region.notifyOnEntry = notify == .Entry;
@@ -420,6 +412,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                 locationManager.startMonitoring(for: region)
                 
                 // debug - ask iOS if user currently inside or outside 'region'
+                isSettingGeofencing = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
                     self?.locationManager.requestState(for: region)
                 }
@@ -430,9 +423,10 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                     Logger.log.warning("WARNING background refresh status DISABLED - cannot use geofencing or read locations in the background!")
                 }
                 else{
-                    Logger.log.verbose("Geofencing for \(identifier) set (\(region.center.latitude),\(region.center.longitude)) @\(radius)m")
-                    self.geofenceLocations[identifier] = location;
+                    Logger.log.info("Geofencing added: \(identifier), (\(region.center.latitude),\(region.center.longitude)) \(radius)m")
                 }
+                
+                lastTimeDidExitRegion = nil
             }
             else{
                 Logger.log.warning("WARNING location services DISABLED - cannot use geofencing!")
@@ -441,18 +435,121 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         else{
             Logger.log.warning("WARNING region monitoring (geofencing) not available for class \(CLCircularRegion.self) - cannot use geofencing!")
         }
-
+        
     }
     
     
-    private func removeAllGeofencing() {
-        Logger.log.verbose("");
+    fileprivate func removeAllGeofencing() {
+        Logger.log.info("removeAllGeofencing")
         for region in locationManager.monitoredRegions {
             locationManager.stopMonitoring(for: region)
         }
-        geofenceLocations.removeAll()
     }
-
+    
+    
+    fileprivate func removeGeofence(_ identifier:String) {
+        
+        for region in locationManager.monitoredRegions.filter({ $0.identifier == identifier }) {
+            Logger.log.info("remove geofencing \(identifier)")
+            locationManager.stopMonitoring(for: region)
+        }
+    }
+    
+    fileprivate func existingGeofence(name: String) -> CLRegion? {
+        return locationManager.monitoredRegions.filter { $0.identifier == name }.first
+    }
+    
+    
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        Logger.log.info("locationManager - Geofencing didExitRegion \(region.identifier) center (\((region as! CLCircularRegion).center.latitude), \((region as! CLCircularRegion).center.longitude))")
+        lastTimeDidExitRegion = Date()
+        trackingEnabled = true;
+        maybeStartBackgroundTask()
+    }
+    
+    func maybeStartBackgroundTask() {
+        if  UIApplication.shared.applicationState != .active,
+            bgTaskId == nil {
+            startBackgroundTask() // allow background location tracking
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        Logger.log.error("locationManager - monitoringDidFailForRegion \(region!.identifier) Error: \(error)")
+        Logger.log.error("monitored regions (\(locationManager.monitoredRegions.count)): ")
+        for region in locationManager.monitoredRegions {
+            if let center = (region as? CLCircularRegion)?.center {
+                Logger.log.error("\(region.identifier): (\(center.latitude),\(center.longitude))")
+            }
+        }
+        if let region = region {
+            removeAllGeofencing()
+            updateGeofence(name: region.identifier, location: nil, force: true)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        let rule = region.notifyOnExit ? "EXIT" : region.notifyOnEntry ? "ENTRY" : ""
+        let cr = region as! CLCircularRegion
+        Logger.log.debug("Started Geofencing \(rule) for region \(region.identifier) (\(cr.center.latitude),\(cr.center.longitude)) radius \(cr.radius)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        
+        let rule = region.notifyOnExit ? "EXIT" : region.notifyOnEntry ? "ENTRY" : ""
+        var stateName = ""
+        var warning : String?
+        
+        let shouldCorrectGeofencing = isSettingGeofencing
+        isSettingGeofencing = false
+        
+        switch state {
+        case .inside:
+            stateName = "INSIDE"
+            
+        case .outside:
+            stateName = "OUTSIDE"
+            if shouldCorrectGeofencing {
+                /*
+                 We need an EXIT event in order to ensure that, if the app is suspended during an active trip,
+                 it will be relaunched to the background with didExitRegion: when EXITING that region.
+                 So we must set a geofencing region in which the user is INSIDE.
+                 Set a new geofencing trigger with a larger radius to ensure the user is inside it.
+                 */
+                var distance = GeofenceDistance.Short
+                var location : CLLocation? = nil
+                if let d = (region as? CLCircularRegion)?.radius {
+                    if let failedDistance = GeofenceDistance(rawValue: Int(d)) {
+                        switch failedDistance {
+                        case .Short:
+                            distance = .Medium
+                        case .Medium:
+                            distance = .Long
+                        default:
+                            distance = .Long
+                            /* The default location for geofencing center is self.lastLocation, which may not be the last true location of the user due to location accuracy filtering
+                             (locations with horizontal accuracy > LocationTracker.DesiredAccuracy are ignored).
+                             as fallback / last resort, use the last true location recorded by CLLocationManager even if it's not accurate, to ensure geofencing will succeed.
+                             */
+                            location = locationManager.location
+                        }
+                        warning = "Will replace \(region.identifier) geofencing from \(failedDistance.rawValue)m to \(distance.rawValue)m, location: \(String(describing: location))"
+                    }
+                }
+                updateGeofence(name: region.identifier, location: nil, force: true, radius: distance)
+            }
+            
+        case .unknown:
+            stateName = "UNKNOWN"
+            updateGeofence(name: region.identifier, location: nil, force: true)
+        }
+        
+        Logger.log.info("Geofencing state for \(rule) region \(region.identifier) is: \(stateName)")
+        if let message = warning {
+            Logger.log.info(message)
+        }
+    }
     
 
 }
@@ -464,3 +561,11 @@ extension Double {
     }
 }
 
+
+extension CLLocation {
+    
+    func distance(from: CLLocationCoordinate2D) -> CLLocationDistance {
+        let location = CLLocation(latitude: from.latitude, longitude: from.longitude)
+        return self.distance(from: location)
+    }
+}
