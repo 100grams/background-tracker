@@ -32,7 +32,7 @@ class Logger: NSObject {
         Logger.log.add(destination: systemLogDestination)
         
         // Create a file log destination
-        let fileLogDestination = AutoRotatingFileDestination(owner: Logger.log, writeToFile: Logger.defaultLogFile(), identifier: "TrackerLogger.fileLogDestination")
+        let fileLogDestination = AutoRotatingFileDestination(owner: Logger.log, writeToFile: Logger.defaultLogFile(), identifier: "TrackerLogger.fileLogDestination", shouldAppend:true)
         
         fileLogDestination.outputLevel = .verbose
         fileLogDestination.showLogIdentifier = false
