@@ -28,7 +28,9 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     private func clearLocations(olderThan:Date = Date.distantFuture) {
         
         if let loc = self.lastLocation {
-            locations = locations.filter { $0.timestamp > olderThan }
+            let filtered = locations.filter { $0.timestamp >= olderThan }
+            Logger.log.debug("marker: \(olderThan). cleared \(locations.count - filtered.count)/\(locations.count) locations.")
+            locations = filtered
             if locations.count == 0 {
                 locations.append(loc)
             }
