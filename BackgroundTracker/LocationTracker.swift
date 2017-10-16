@@ -25,6 +25,16 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         }
     }
  
+    private func clearLocations(olderThan:Date = Date.distantFuture) {
+        
+        if let loc = self.lastLocation {
+            locations = locations.filter { $0.timestamp > olderThan }
+            if locations.count == 0 {
+                locations.append(loc)
+            }
+        }
+    }
+
     // MARK: - Constants
 
     static let kDefaultTrackingInterval = 10 as TimeInterval  // seconds
@@ -72,13 +82,6 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             else{
                 stopTrackingLocation()
                 locationManager.stopMonitoringSignificantLocationChanges()
-
-                let loc = locations.last
-                locations.removeAll()
-                if loc != nil {
-                    locations.append(loc!)
-                }
-
             }
         }
     }
@@ -203,6 +206,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
                 }
                 else {
                     trackingEnabled = false
+                    clearLocations(olderThan: location.timestamp)
                 }
             }
         }

@@ -17,7 +17,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>6</string>
+	<string>7</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -36,6 +36,10 @@
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Tracking your location in the background</string>
+	<key>NSLocationAlwaysUsageDescription - 2</key>
+	<string>This app tracks your location while you move and uses geofencing when you stop.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Motion data is used for detecting your travel mode.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
