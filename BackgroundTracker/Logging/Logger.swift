@@ -9,6 +9,7 @@
 import UIKit
 import XCGLogger
 import SSZipArchive
+import FirebaseStorage
 
 class Logger: NSObject {
 
@@ -32,7 +33,7 @@ class Logger: NSObject {
         Logger.log.add(destination: systemLogDestination)
         
         // Create a file log destination
-        let fileLogDestination = AutoRotatingFileDestination(owner: Logger.log, writeToFile: Logger.defaultLogFile(), identifier: "TrackerLogger.fileLogDestination", shouldAppend:true)
+        let fileLogDestination = AutoRotatingFileDestination(owner: Logger.log, writeToFile: Logger.defaultLogFile(), identifier: "CoreTracker.logFile")
         
         fileLogDestination.outputLevel = .verbose
         fileLogDestination.showLogIdentifier = false
@@ -42,6 +43,13 @@ class Logger: NSObject {
         fileLogDestination.showFileName = true
         fileLogDestination.showLineNumber = true
         fileLogDestination.showDate = true
+        fileLogDestination.targetMaxLogFiles = 1;
+        fileLogDestination.archiveFolderURL = URL(fileURLWithPath: archiveDirectory)
+        fileLogDestination.autoRotationCompletion = { (success:Bool) in
+            if success {
+                sendLogsToFirebase()
+            }
+        }
         
         // Process this destination in the background
         fileLogDestination.logQueue = XCGLogger.logQueue
@@ -57,6 +65,17 @@ class Logger: NSObject {
     
     static var logDirectory: String {
         let url = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/logs")
+        createDirectory(url)
+        return url.path
+    }
+    
+    static var archiveDirectory: String {
+        let url = URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/archive")
+        createDirectory(url)
+        return url.path
+    }
+
+    class fileprivate func createDirectory(_ url:URL) {
         if FileManager.default.fileExists(atPath: url.path) == false {
             do {
                 try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
@@ -65,7 +84,6 @@ class Logger: NSObject {
                 Logger.log.error(error)
             }
         }
-        return url.path
     }
     
     class func defaultLogFile() -> String {
@@ -73,7 +91,7 @@ class Logger: NSObject {
     }
     
     class func zippedLogFileName() -> String? {
-        let logZipPath = logDirectory + "/log.zip"
+        let logZipPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/log.zip"
         
         do {
             try FileManager.default.removeItem(atPath: logZipPath)
@@ -84,7 +102,7 @@ class Logger: NSObject {
             }
         }
         
-        if SSZipArchive.createZipFile(atPath: logZipPath, withFilesAtPaths:[Logger.defaultLogFile()]) == false {
+        if SSZipArchive.createZipFile(atPath: logZipPath, withContentsOfDirectory: archiveDirectory) == false {
             DispatchQueue.main.async {
                 Logger.log.error("Failed zipping the log file!")
             }
@@ -92,5 +110,38 @@ class Logger: NSObject {
         
         return logZipPath
     }
+    
+    
+    class func zippedLogArchive() -> NSData? {
+        
+        if let zipFile = Logger.zippedLogFileName() {
+            return NSData(contentsOfFile: zipFile)
+        }
+        return nil
+    }
+    
+}
 
+// MARKER: - Firebase
+
+extension Logger {
+    
+    class func sendLogsToFirebase() {
+        
+        // Data in memory
+        guard let data = Logger.zippedLogArchive() as Data? else { return }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-YYYY.hh:mm:ss"
+        let storageRef = Storage.storage().reference().child("iOS/\(UIDevice.current.identifierForVendor!.uuidString)/\(formatter.string(from: Date())).zip")
+
+        storageRef.putData(data, metadata: nil) { (metaData, error) in
+            if error != nil {
+                Logger.log.error("ERROR uploading to FirebaseStorage: \(storageRef.fullPath) \(String(describing: error?.localizedDescription))")
+            }
+            else if let url = metaData?.downloadURL() {
+                Logger.log.info("Successfully uploaded logs to FirebaseStorage: \(url)")
+            }
+        }
+    }
 }

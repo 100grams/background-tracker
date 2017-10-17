@@ -10,6 +10,7 @@ target 'BackgroundTracker' do
   pod 'SSZipArchive'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'Firebase/Storage'
 
   target 'BackgroundTrackerTests' do
     inherit! :search_paths

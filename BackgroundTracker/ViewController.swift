@@ -51,7 +51,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
                 if let data = NSData(contentsOfFile: zipFile!) {
                     DispatchQueue.main.async {
                         let mailComposer = MFMailComposeViewController()
-                        mailComposer.setSubject("Tracker Logs")
+                        mailComposer.setSubject("CoreTracker Logs")
                         mailComposer.addAttachmentData(data as Data, mimeType: "application/zip", fileName: "logs.zip")
                         mailComposer.setToRecipients(["rotem@100grams.nl"])
                         mailComposer.mailComposeDelegate = self
