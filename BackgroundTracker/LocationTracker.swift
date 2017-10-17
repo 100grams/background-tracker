@@ -472,6 +472,8 @@ extension LocationTracker {
         lastTimeDidExitRegion = Date()
         trackingEnabled = true;
         maybeStartBackgroundTask()
+        
+        NotificationsUtility.showLocalNotification(title: "exit region", message: "\((region as! CLCircularRegion).center)")
     }
     
     func maybeStartBackgroundTask() {
@@ -499,6 +501,8 @@ extension LocationTracker {
         let rule = region.notifyOnExit ? "EXIT" : region.notifyOnEntry ? "ENTRY" : ""
         let cr = region as! CLCircularRegion
         Logger.log.debug("Started Geofencing \(rule) for region \(region.identifier) (\(cr.center.latitude),\(cr.center.longitude)) radius \(cr.radius)")
+        
+        NotificationsUtility.showLocalNotification(title: "Started Geofencing", message: "\(rule) for region \(region.identifier)")
     }
     
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
