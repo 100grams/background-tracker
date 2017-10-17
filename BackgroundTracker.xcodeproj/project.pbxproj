@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		47FFA020AE6A3E333A868DAE /* Pods_BackgroundTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1623B5781283B4181E3C8210 /* Pods_BackgroundTrackerUITests.framework */; };
 		5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */; };
-		967E4B811F96255600EC6490 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967E4B801F961A4300EC6490 /* GoogleService-Info.plist */; };
 		67CB4DD71F95FE9F006A9267 /* NotificationsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB4DD61F95FE9F006A9267 /* NotificationsUtility.swift */; };
 		67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */; };
-		67CB4DDC1F9611AB006A9267 /* untitled.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 67CB4DDB1F9611AB006A9267 /* untitled.gpx */; };
+		967E4B811F96255600EC6490 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967E4B801F961A4300EC6490 /* GoogleService-Info.plist */; };
 		96BB1F501EB9C5940083630D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F4F1EB9C5940083630D /* AppDelegate.swift */; };
 		96BB1F521EB9C5940083630D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F511EB9C5940083630D /* ViewController.swift */; };
 		96BB1F551EB9C5940083630D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96BB1F531EB9C5940083630D /* Main.storyboard */; };
@@ -52,7 +51,6 @@
 		384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		67CB4DD61F95FE9F006A9267 /* NotificationsUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUtility.swift; sourceTree = "<group>"; };
 		67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		67CB4DDB1F9611AB006A9267 /* untitled.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = untitled.gpx; path = ../../../Desktop/untitled.gpx; sourceTree = "<group>"; };
 		7301782D9D70569B1D11A562 /* Pods-BackgroundTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerUITests/Pods-BackgroundTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		967E4B801F961A4300EC6490 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		96BB1F4C1EB9C5940083630D /* BackgroundTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BackgroundTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,14 +130,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		67CB4DDA1F96119C006A9267 /* gpx */ = {
-			isa = PBXGroup;
-			children = (
-				67CB4DDB1F9611AB006A9267 /* untitled.gpx */,
-			);
-			name = gpx;
-			sourceTree = "<group>";
-		};
 		96BB1F431EB9C5940083630D = {
 			isa = PBXGroup;
 			children = (
@@ -165,7 +155,6 @@
 		96BB1F4E1EB9C5940083630D /* BackgroundTracker */ = {
 			isa = PBXGroup;
 			children = (
-				67CB4DDA1F96119C006A9267 /* gpx */,
 				96BB1F851EB9C73C0083630D /* Logging */,
 				96BB1F4F1EB9C5940083630D /* AppDelegate.swift */,
 				96BB1F511EB9C5940083630D /* ViewController.swift */,
@@ -337,7 +326,6 @@
 				96BB1F5A1EB9C5940083630D /* LaunchScreen.storyboard in Resources */,
 				967E4B811F96255600EC6490 /* GoogleService-Info.plist in Resources */,
 				96BB1F571EB9C5940083630D /* Assets.xcassets in Resources */,
-				67CB4DDC1F9611AB006A9267 /* untitled.gpx in Resources */,
 				96BB1F551EB9C5940083630D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
