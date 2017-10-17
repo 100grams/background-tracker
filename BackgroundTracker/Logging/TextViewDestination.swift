@@ -25,13 +25,15 @@ open class TextViewDestination : BaseQueuedDestination {
 
     open override func write(message: String) {
         if let textView = _textView {
-            let text = textView.text ?? ""
-            textView.text = text + "\n\n" + message
-            
-            // scroll to the bottom to show new message 
-            var offset = textView.contentOffset
-            offset.y = textView.contentSize.height + textView.contentInset.bottom - textView.bounds.size.height
-            textView.setContentOffset(offset, animated: true)
+            DispatchQueue.main.async {
+                let text = textView.text ?? ""
+                textView.text = text + "\n\n" + message
+                
+                // scroll to the bottom to show new message
+                var offset = textView.contentOffset
+                offset.y = textView.contentSize.height + textView.contentInset.bottom - textView.bounds.size.height
+                textView.setContentOffset(offset, animated: true)
+            }
         }
     }
 }
