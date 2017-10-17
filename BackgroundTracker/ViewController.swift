@@ -36,6 +36,13 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         Logger.log.add(destination: textViewDestination)
 
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        NotificationsUtility.requestForPermissions()
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
