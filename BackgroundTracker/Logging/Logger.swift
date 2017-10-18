@@ -47,6 +47,7 @@ class Logger: NSObject {
         fileLogDestination.archiveFolderURL = URL(fileURLWithPath: archiveDirectory)
         fileLogDestination.autoRotationCompletion = { (success:Bool) in
             if success {
+                Logger.log.info("Device UDID: \(UIDevice.current.identifierForVendor!.uuidString)")
                 sendLogsToFirebase()
             }
         }
@@ -137,7 +138,7 @@ extension Logger {
 
         storageRef.putData(data, metadata: nil) { (metaData, error) in
             if error != nil {
-                Logger.log.error("ERROR uploading to FirebaseStorage: \(storageRef.fullPath) \(String(describing: error?.localizedDescription))")
+                Logger.log.error("ERROR uploading to FirebaseStorage: \(storageRef.fullPath) \(String(describing: error!.localizedDescription))")
             }
             else if let url = metaData?.downloadURL() {
                 Logger.log.info("Successfully uploaded logs to FirebaseStorage: \(url)")
