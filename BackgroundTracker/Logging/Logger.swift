@@ -47,7 +47,7 @@ class Logger: NSObject {
         fileLogDestination.archiveFolderURL = URL(fileURLWithPath: archiveDirectory)
         fileLogDestination.autoRotationCompletion = { (success:Bool) in
             if success {
-                Logger.log.info("Device UDID: \(UIDevice.current.identifierForVendor!.uuidString)")
+                Logger.log.debug("\(UIDevice().type) UDID: \(UIDevice.current.identifierForVendor!.uuidString)")
                 sendLogsToFirebase()
             }
         }
@@ -91,7 +91,7 @@ class Logger: NSObject {
         return logDirectory + logBaseFileName
     }
     
-    class func zippedLogFileName() -> String? {
+    class func zippedLogFileName(directory:String = archiveDirectory) -> String? {
         let logZipPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/log.zip"
         
         do {
@@ -103,7 +103,7 @@ class Logger: NSObject {
             }
         }
         
-        if SSZipArchive.createZipFile(atPath: logZipPath, withContentsOfDirectory: archiveDirectory) == false {
+        if SSZipArchive.createZipFile(atPath: logZipPath, withContentsOfDirectory: directory) == false {
             DispatchQueue.main.async {
                 Logger.log.error("Failed zipping the log file!")
             }

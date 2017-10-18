@@ -54,7 +54,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         if MFMailComposeViewController.canSendMail() {
             
             DispatchQueue.global().async { [weak self] in
-                let zipFile = Logger.zippedLogFileName()
+                let zipFile = Logger.zippedLogFileName(directory: Logger.logDirectory)
                 if let data = NSData(contentsOfFile: zipFile!) {
                     DispatchQueue.main.async {
                         let mailComposer = MFMailComposeViewController()

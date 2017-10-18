@@ -11,6 +11,7 @@
 		5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */; };
 		67CB4DD71F95FE9F006A9267 /* NotificationsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB4DD61F95FE9F006A9267 /* NotificationsUtility.swift */; };
 		67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */; };
+		9635AB421F975EA800803511 /* UIDevice+type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9635AB411F975EA800803511 /* UIDevice+type.swift */; };
 		967E4B811F96255600EC6490 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967E4B801F961A4300EC6490 /* GoogleService-Info.plist */; };
 		96BB1F501EB9C5940083630D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F4F1EB9C5940083630D /* AppDelegate.swift */; };
 		96BB1F521EB9C5940083630D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F511EB9C5940083630D /* ViewController.swift */; };
@@ -52,6 +53,7 @@
 		67CB4DD61F95FE9F006A9267 /* NotificationsUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUtility.swift; sourceTree = "<group>"; };
 		67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		7301782D9D70569B1D11A562 /* Pods-BackgroundTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerUITests/Pods-BackgroundTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9635AB411F975EA800803511 /* UIDevice+type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+type.swift"; sourceTree = "<group>"; };
 		967E4B801F961A4300EC6490 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		96BB1F4C1EB9C5940083630D /* Trckr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trckr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BB1F4F1EB9C5940083630D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				96BB1F811EB9C7340083630D /* Logger.swift */,
 				96BB1F821EB9C7340083630D /* Timberjack.swift */,
 				96BB1F881EB9D5980083630D /* TextViewDestination.swift */,
+				9635AB411F975EA800803511 /* UIDevice+type.swift */,
 			);
 			name = Logging;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				96BB1F7E1EB9C5B50083630D /* LocationTracker.swift in Sources */,
 				96BB1F831EB9C7340083630D /* Logger.swift in Sources */,
 				96BB1F871EB9C7670083630D /* CoordinateBounds.swift in Sources */,
+				9635AB421F975EA800803511 /* UIDevice+type.swift in Sources */,
 				96BB1F841EB9C7340083630D /* Timberjack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
