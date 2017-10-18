@@ -37,17 +37,16 @@ class Logger: NSObject {
         
         fileLogDestination.outputLevel = .verbose
         fileLogDestination.showLogIdentifier = false
-        fileLogDestination.showFunctionName = true
-        fileLogDestination.showThreadName = true
+        fileLogDestination.showFunctionName = false
+        fileLogDestination.showThreadName = false
         fileLogDestination.showLevel = true
-        fileLogDestination.showFileName = true
-        fileLogDestination.showLineNumber = true
+        fileLogDestination.showFileName = false
+        fileLogDestination.showLineNumber = false
         fileLogDestination.showDate = true
         fileLogDestination.targetMaxLogFiles = 1;
         fileLogDestination.archiveFolderURL = URL(fileURLWithPath: archiveDirectory)
         fileLogDestination.autoRotationCompletion = { (success:Bool) in
             if success {
-                Logger.log.debug("\(UIDevice().type) UDID: \(UIDevice.current.identifierForVendor!.uuidString)")
                 sendLogsToFirebase()
             }
         }
@@ -58,7 +57,9 @@ class Logger: NSObject {
         Logger.log.add(destination: fileLogDestination)
         
         // Add basic app info, version info etc, to the start of the logs
+        Logger.log.info("\(UIDevice().type) UDID: \(UIDevice.current.identifierForVendor!.uuidString)")
         Logger.log.logAppDetails()
+
 
     }
     
