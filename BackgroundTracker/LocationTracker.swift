@@ -100,14 +100,14 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
             locationManager.requestAlwaysAuthorization()
         }
         else if CLLocationManager.authorizationStatus() != .denied {
-            Logger.log.verbose("")
+            Logger.log.verbose("startTrackingLocation")
             locationManager.startUpdatingLocation()
         }
     }
     
     func stopTrackingLocation() {
 
-        Logger.log.verbose("")
+        Logger.log.verbose("stopTrackingLocation")
 
         stopBackgroundTask()
         locationManager.stopUpdatingLocation()
@@ -479,7 +479,7 @@ extension LocationTracker {
     
     func maybeStartBackgroundTask() {
         if  UIApplication.shared.applicationState != .active,
-            bgTaskId == nil {
+            bgTaskId == UIBackgroundTaskInvalid {
             startBackgroundTask() // allow background location tracking
         }
     }

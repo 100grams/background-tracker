@@ -47,6 +47,7 @@ class Logger: NSObject {
         fileLogDestination.archiveFolderURL = URL(fileURLWithPath: archiveDirectory)
         fileLogDestination.autoRotationCompletion = { (success:Bool) in
             if success {
+                Logger.log.info("\(UIDevice().type) UDID: \(UIDevice.current.identifierForVendor!.uuidString)")
                 sendLogsToFirebase()
             }
         }
@@ -134,7 +135,7 @@ extension Logger {
         guard let data = Logger.zippedLogArchive() as Data? else { return }
 
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-YYYY.hh:mm:ss"
+        formatter.dateFormat = "dd-MM-YYYY.HH:mm:ss"
         let storageRef = Storage.storage().reference().child("iOS/\(UIDevice.current.identifierForVendor!.uuidString)/\(formatter.string(from: Date())).zip")
 
         storageRef.putData(data, metadata: nil) { (metaData, error) in
