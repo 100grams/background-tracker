@@ -44,11 +44,10 @@ class Logger: NSObject {
         fileLogDestination.showLineNumber = false
         fileLogDestination.showDate = true
         fileLogDestination.targetMaxLogFiles = 1;
-        fileLogDestination.archiveFolderURL = URL(fileURLWithPath: archiveDirectory)
-        fileLogDestination.autoRotationCompletion = { (success:Bool) in
-            if success {
+        fileLogDestination.autoRotationCompletion = { (success:Bool, archivedFile:String?) in
+            if success, let path = archivedFile {
                 Logger.log.info("\(UIDevice().type) UDID: \(UIDevice.current.identifierForVendor!.uuidString)")
-                sendLogsToFirebase()
+                uploadFirebaseLog(path: path)
             }
         }
         
@@ -129,14 +128,12 @@ class Logger: NSObject {
 
 extension Logger {
     
-    class func sendLogsToFirebase() {
+    class func uploadFirebaseLog(path: String) {
         
         // Data in memory
-        guard let data = Logger.zippedLogArchive() as Data? else { return }
+        guard let data = NSData(contentsOfFile: path) as Data? else { return }
 
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-YYYY.HH:mm:ss"
-        let storageRef = Storage.storage().reference().child("iOS/\(UIDevice.current.identifierForVendor!.uuidString)/\(formatter.string(from: Date())).zip")
+        let storageRef = Storage.storage().reference().child("iOS/\(UIDevice.current.identifierForVendor!.uuidString)/\(URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent).zip")
 
         storageRef.putData(data, metadata: nil) { (metaData, error) in
             if error != nil {
