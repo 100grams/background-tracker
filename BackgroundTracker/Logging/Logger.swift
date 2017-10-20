@@ -92,35 +92,59 @@ class Logger: NSObject {
         return logDirectory + logBaseFileName
     }
     
-    class func zippedLogFileName(directory:String = archiveDirectory) -> String? {
+    /**
+     zip `directory` and return the file URL of the zip
+     */
+    class func zip(directory:String = archiveDirectory) -> URL? {
         let logZipPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/log.zip"
+        cleanZip(path:logZipPath)
         
+        if SSZipArchive.createZipFile(atPath: logZipPath, withContentsOfDirectory: directory) == false {
+            DispatchQueue.main.async {
+                Logger.log.error("Failed zipping the log file!")
+            }
+            return nil
+        }
+        
+        return URL(fileURLWithPath: logZipPath)
+    }
+
+    /**
+     zip `url` and return the file URL of the zip
+     */
+    class func zip(contentsOf url:URL) -> URL? {
+        let logZipPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/\(url.deletingPathExtension().lastPathComponent).zip"
+        cleanZip(path:logZipPath)
+        
+        if SSZipArchive.createZipFile(atPath: logZipPath, withFilesAtPaths: [url.path]) == false {
+            DispatchQueue.main.async {
+                Logger.log.error("Failed zipping the log file!")
+            }
+            return nil
+        }
+        
+        return URL(fileURLWithPath: logZipPath)
+    }
+
+    class private func cleanZip(path:String) {
         do {
-            try FileManager.default.removeItem(atPath: logZipPath)
+            try FileManager.default.removeItem(atPath: path)
         }
         catch {
             DispatchQueue.main.async {
                 Logger.log.error(error)
             }
         }
-        
-        if SSZipArchive.createZipFile(atPath: logZipPath, withContentsOfDirectory: directory) == false {
-            DispatchQueue.main.async {
-                Logger.log.error("Failed zipping the log file!")
-            }
-        }
-        
-        return logZipPath
     }
-    
     
     class func zippedLogArchive() -> NSData? {
         
-        if let zipFile = Logger.zippedLogFileName() {
-            return NSData(contentsOfFile: zipFile)
+        if let zipFile = Logger.zip() {
+            return NSData(contentsOf: zipFile)
         }
         return nil
     }
+    
     
 }
 
@@ -130,10 +154,11 @@ extension Logger {
     
     class func uploadFirebaseLog(path: String) {
         
-        // Data in memory
-        guard let data = NSData(contentsOfFile: path) as Data? else { return }
+        let url = URL(fileURLWithPath: path)
+        guard let zipFile = zip(contentsOf: url) else { return }
+        guard let data = NSData(contentsOf: zipFile) as Data? else { return }
 
-        let storageRef = Storage.storage().reference().child("iOS/\(UIDevice.current.identifierForVendor!.uuidString)/\(URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent).zip")
+        let storageRef = Storage.storage().reference().child("iOS/\(UIDevice.current.identifierForVendor!.uuidString)/\(zipFile.lastPathComponent)")
 
         storageRef.putData(data, metadata: nil) { (metaData, error) in
             if error != nil {

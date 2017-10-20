@@ -54,8 +54,8 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         if MFMailComposeViewController.canSendMail() {
             
             DispatchQueue.global().async { [weak self] in
-                let zipFile = Logger.zippedLogFileName(directory: Logger.logDirectory)
-                if let data = NSData(contentsOfFile: zipFile!) {
+                if let zipFile = Logger.zip(directory: Logger.logDirectory),
+                    let data = NSData(contentsOf: zipFile) {
                     DispatchQueue.main.async {
                         let mailComposer = MFMailComposeViewController()
                         mailComposer.setSubject("CoreTracker Logs")
