@@ -25,7 +25,7 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         }
     }
  
-    private func clearLocations(olderThan:Date = Date.distantFuture) {
+    fileprivate func clearLocations(olderThan:Date = Date.distantFuture) {
         
         if let loc = self.lastLocation {
             let filtered = locations.filter { $0.timestamp >= olderThan }
@@ -199,17 +199,9 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         if processNewLocations(locations) {
-
+            
             if let location = LocationTracker.stationary(locations: self.locations) {
-                
                 updateGeofence(name: "CurrentLocation", location: location)
-                if NSDate().timeIntervalSince(lastLocationUploadTime) >= LocationTracker.kDefaultLocationUploadInterval {
-                    uploadLastLocation()
-                }
-                else {
-                    trackingEnabled = false
-                    clearLocations(olderThan: location.timestamp)
-                }
             }
         }
         
@@ -400,6 +392,9 @@ extension LocationTracker {
         }
         else if let region = existing {
             Logger.log.debug("geofencing exists: \(region.identifier), (\(region.center.latitude),\(region.center.longitude)) \(region.radius)m")
+            if isSettingGeofencing == false {
+                stopTrackingIfStationary()
+            }
         }
     }
     
@@ -519,6 +514,7 @@ extension LocationTracker {
         switch state {
         case .inside:
             stateName = "INSIDE"
+            stopTrackingIfStationary()
             
         case .outside:
             stateName = "OUTSIDE"
@@ -562,7 +558,19 @@ extension LocationTracker {
             Logger.log.info(message)
         }
     }
-    
+
+    func stopTrackingIfStationary() {
+        
+        if let location = LocationTracker.stationary(locations: self.locations) {
+            if NSDate().timeIntervalSince(lastLocationUploadTime) >= LocationTracker.kDefaultLocationUploadInterval {
+                uploadLastLocation()
+            }
+            else {
+                trackingEnabled = false
+                clearLocations(olderThan: location.timestamp)
+            }
+        }
+    }
 
 }
 
