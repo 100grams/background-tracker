@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         if (launchOptions?[.location]) != nil {
-            Logger.log.verbose("launched with location key")
+            Logger.log.verbose("launched with location key %@")
             LocationTracker.sharedInstance.trackingEnabled = true
         }
         

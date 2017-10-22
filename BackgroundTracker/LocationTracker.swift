@@ -232,6 +232,9 @@ class LocationTracker: NSObject, CLLocationManagerDelegate {
         
         if filteredLocations.count > 0 {
             locations += filteredLocations
+            if let loc = filteredLocations.last {
+                checkGeofenceCoverage(location:loc)
+            }
             return true
         }
         else{
@@ -464,11 +467,36 @@ extension LocationTracker {
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         Logger.log.info("locationManager - Geofencing didExitRegion \(region.identifier) center (\((region as! CLCircularRegion).center.latitude), \((region as! CLCircularRegion).center.longitude))")
+        if let region = region as? CLCircularRegion {
+            handleGeofenceExit(region:region)
+        }
+    }
+    
+    /**
+     Check if `location` is outside any of the monitored regions and handle accordingly.
+     
+     This method is useful in case the app is launched to the background with application:didFinishLaunchingWithOptions:
+     containing the .location key. In this case, LocationTracker is not yet initialized hence does not receive the
+     manager:didExitRegion: call. LocationTracker is then initialized and starts tracking locations. The first accurate
+     location received from CoreLocation will call checkGeofenceCoverage and handle the exit event gracefully.
+     
+     */
+    func checkGeofenceCoverage(location:CLLocation) {
+        guard lastTimeDidExitRegion == nil else { return }
+        for region in locationManager.monitoredRegions {
+            if let region = region as? CLCircularRegion,
+                region.contains(location.coordinate) == false {
+                handleGeofenceExit(region: region)
+            }
+        }
+    }
+    
+    func handleGeofenceExit(region:CLCircularRegion) {
         lastTimeDidExitRegion = Date()
         trackingEnabled = true;
         maybeStartBackgroundTask()
         
-        let coord = (region as! CLCircularRegion).center
+        let coord = region.center
         NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(coord.latitude), \(coord.longitude))")
     }
     
