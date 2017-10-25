@@ -498,12 +498,16 @@ extension LocationTracker {
         
         let coord = region.center
         NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(coord.latitude), \(coord.longitude))")
+        Logger.log.debug("Trip started (\(coord.latitude), \(coord.longitude))")
     }
     
     func maybeStartBackgroundTask() {
         if  UIApplication.shared.applicationState != .active,
-            bgTaskId == UIBackgroundTaskInvalid {
+            (bgTaskId == nil || bgTaskId == UIBackgroundTaskInvalid) {
             startBackgroundTask() // allow background location tracking
+        }
+        else {
+            Logger.log.info("maybeStartBackgroundTask - NO. bgTaskId \(bgTaskId) applicationState \(UIApplication.shared.applicationState)")
         }
     }
     
@@ -528,6 +532,7 @@ extension LocationTracker {
         
         let coord = cr.center
         NotificationsUtility.showLocalNotification(title: "Trip ended", message: "(\(coord.latitude), \(coord.longitude))")
+        Logger.log.debug("Trip ended (\(coord.latitude), \(coord.longitude))")
     }
     
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
