@@ -530,9 +530,12 @@ extension LocationTracker {
         let cr = region as! CLCircularRegion
         Logger.log.debug("Started Geofencing \(rule) for region \(region.identifier) (\(cr.center.latitude),\(cr.center.longitude)) radius \(cr.radius)")
         
-        let coord = cr.center
-        NotificationsUtility.showLocalNotification(title: "Trip ended", message: "(\(coord.latitude), \(coord.longitude))")
-        Logger.log.debug("Trip ended (\(coord.latitude), \(coord.longitude))")
+        // DEBUG: show notification
+        if let _ = LocationTracker.stationary(locations: self.locations) {
+            let coord = cr.center
+            NotificationsUtility.showLocalNotification(title: "Trip ended", message: "(\(coord.latitude), \(coord.longitude))")
+            Logger.log.debug("Trip ended (\(coord.latitude), \(coord.longitude))")
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
