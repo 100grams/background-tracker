@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if (launchOptions?[.location]) != nil {
             Logger.log.verbose("launched with location key %@")
-            LocationTracker.sharedInstance.trackingEnabled = true
+            Trckr.sharedInstance.trackingEnabled = true
         }
         
         return true

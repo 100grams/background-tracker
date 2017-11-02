@@ -20,7 +20,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         
         // start tracking location
         // TODO: move this to a dedicated VC that explains to the user why location tracking is required
-        LocationTracker.sharedInstance.trackingEnabled = true
+        Trckr.sharedInstance.trackingEnabled = true
 
         let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination", textView: textView)
         
