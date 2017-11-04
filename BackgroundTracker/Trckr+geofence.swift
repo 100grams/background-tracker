@@ -107,12 +107,22 @@ extension Trckr {
     
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        Logger.log.info("locationManager - Geofencing didExitRegion \(region.identifier) center (\((region as! CLCircularRegion).center.latitude), \((region as! CLCircularRegion).center.longitude))")
         if let region = region as? CLCircularRegion {
+            Logger.log.info("locationManager - Geofencing didExitRegion \(region.identifier) center (\(region.center.latitude), \(region.center.longitude))")
             handleGeofenceExit(region:region)
+        }
+        else if let region = region as? CLBeaconRegion {
+            Logger.log.info("locationManager - Beacon didExitRegion \(region.identifier) (\(String(describing: region.major))/\(String(describing: region.minor)))")
+            handleBeaconExit(region:region)
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        if let region = region as? CLBeaconRegion {
+            Logger.log.info("locationManager - Beacon didEnterRegion \(region.identifier) (\(String(describing: region.major))/\(String(describing: region.minor)))")
+            handleBeaconEntry(region:region)
+        }
+    }
     /**
      Check if `location` is outside any of the monitored regions and handle accordingly.
      
