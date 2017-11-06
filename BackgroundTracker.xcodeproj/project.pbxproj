@@ -24,8 +24,8 @@
 		96BB1F871EB9C7670083630D /* CoordinateBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F861EB9C7670083630D /* CoordinateBounds.swift */; };
 		96BB1F891EB9D5980083630D /* TextViewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F881EB9D5980083630D /* TextViewDestination.swift */; };
 		96C076E91FB0ABE10070B455 /* NotificationsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C076E81FB0ABE10070B455 /* NotificationsUtility.swift */; };
-		96C076EA1FB0AD060070B455 /* trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C076E41FB0A7220070B455 /* trckr.framework */; };
 		C44CB64E1D0467758D31DEA3 /* Pods_BackgroundTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */; };
+		E9A354161FB0EDCC007EE4EF /* Trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A354151FB0EDCC007EE4EF /* Trckr.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,12 +71,12 @@
 		96BB1F821EB9C7340083630D /* Timberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timberjack.swift; path = Logging/Timberjack.swift; sourceTree = "<group>"; };
 		96BB1F861EB9C7670083630D /* CoordinateBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateBounds.swift; sourceTree = "<group>"; };
 		96BB1F881EB9D5980083630D /* TextViewDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextViewDestination.swift; path = Logging/TextViewDestination.swift; sourceTree = "<group>"; };
-		96C076E41FB0A7220070B455 /* trckr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = trckr.framework; path = ../../../../private/tmp/trckr.framework; sourceTree = "<group>"; };
 		96C076E81FB0ABE10070B455 /* NotificationsUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsUtility.swift; sourceTree = "<group>"; };
 		ACE789308A1E5B6705FB7C4C /* Pods-BackgroundTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerUITests/Pods-BackgroundTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE26CF5ECB4A90A49151BD70 /* Pods-BackgroundTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTracker/Pods-BackgroundTracker.release.xcconfig"; sourceTree = "<group>"; };
 		D4595A92E9D77F8DB4ED9A22 /* Pods-BackgroundTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerTests/Pods-BackgroundTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E9A354151FB0EDCC007EE4EF /* Trckr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Trckr.framework; path = ../../../../private/tmp/Trckr.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 			files = (
 				67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */,
 				5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */,
-				96C076EA1FB0AD060070B455 /* trckr.framework in Frameworks */,
+				E9A354161FB0EDCC007EE4EF /* Trckr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +125,7 @@
 		42AD9E8BA4ACDDD26AD4074D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				96C076E41FB0A7220070B455 /* trckr.framework */,
+				E9A354151FB0EDCC007EE4EF /* Trckr.framework */,
 				67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */,
 				C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */,
 				384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */,

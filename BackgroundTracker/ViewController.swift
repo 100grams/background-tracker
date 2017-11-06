@@ -14,7 +14,7 @@ import CoreLocation
 class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var textView: UITextView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,30 +37,6 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         
         Logger.log.add(destination: textViewDestination)
 
-        Geofence.regionCrossed = { (region, type) in
-            if region.identifier == Geofence.RegionType,
-                let circle = region as? CLCircularRegion {
-                NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(circle.center.latitude), \(circle.center.longitude))")
-                Logger.log.debug("Trip started (\(circle.center.latitude), \(circle.center.longitude))")
-            }
-            else if region.identifier == Beacon.RegionType,
-                let beacon = region as? CLBeaconRegion {
-                switch type {
-                case .Exit:
-                    let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
-                    NotificationsUtility.showLocalNotification(title: "Beacon EXIT", message: message)
-                    Logger.log.debug("Beacon EXIT (\(message))")
-                    break
-                case .Entry:
-                    let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
-                    NotificationsUtility.showLocalNotification(title: "Beacon ENTRY", message: message)
-                    Logger.log.debug("Beacon ENTRY (\(message))")
-                    break
-                default:
-                    break
-                }
-            }
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -105,3 +81,59 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
 }
 
+extension ViewController : TrckrDelegate {
+
+    var trip : Int? {
+        get {
+            return UserDefaults.standard.integer(forKey: "trip")
+        }
+        set(t) {
+            UserDefaults.standard.set(t, forKey: "trip")
+        }
+    }
+
+    func didStartTracking() {
+        if trip == nil {
+            trip = 0
+            if let region = Geofence.shared.existingGeofence() as? CLCircularRegion {
+                NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(region.center.latitude), \(region.center.longitude))")
+                Logger.log.debug("Trip started (\(region.center.latitude), \(region.center.longitude))")
+            }
+        }
+    }
+    func didStopTracking() {
+        if trip != nil {
+            trip = nil
+            if let region = Geofence.shared.existingGeofence() as? CLCircularRegion {
+                NotificationsUtility.showLocalNotification(title: "Trip ended", message: "(\(region.center.latitude), \(region.center.longitude))")
+                Logger.log.debug("Trip ended (\(region.center.latitude), \(region.center.longitude))")
+            }
+        }
+    }
+    
+    
+    func didCross(region: CLRegion, type: Geofence.GeofenceType) {
+        if region.identifier == Geofence.RegionType,
+            let circle = region as? CLCircularRegion {
+            NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(circle.center.latitude), \(circle.center.longitude))")
+            Logger.log.debug("Trip started (\(circle.center.latitude), \(circle.center.longitude))")
+        }
+        else if region.identifier == Beacon.RegionType,
+            let beacon = region as? CLBeaconRegion {
+            switch type {
+            case .Exit:
+                let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
+                NotificationsUtility.showLocalNotification(title: "Beacon EXIT", message: message)
+                Logger.log.debug("Beacon EXIT (\(message))")
+                break
+            case .Entry:
+                let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
+                NotificationsUtility.showLocalNotification(title: "Beacon ENTRY", message: message)
+                Logger.log.debug("Beacon ENTRY (\(message))")
+                break
+            default:
+                break
+            }
+        }
+    }
+}
