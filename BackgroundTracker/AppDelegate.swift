@@ -10,6 +10,7 @@ import UIKit
 import Fabric
 import Crashlytics
 import Firebase
+import Trckr
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,7 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if (launchOptions?[.location]) != nil {
             Logger.log.verbose("launched with location key %@")
-            Trckr.sharedInstance.trackingEnabled = true
+            Trckr.shared.trackingEnabled = true
+            
         }
         
         return true

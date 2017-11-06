@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		47FFA020AE6A3E333A868DAE /* Pods_BackgroundTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1623B5781283B4181E3C8210 /* Pods_BackgroundTrackerUITests.framework */; };
 		5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */; };
-		67CB4DD71F95FE9F006A9267 /* NotificationsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CB4DD61F95FE9F006A9267 /* NotificationsUtility.swift */; };
 		67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */; };
 		9635AB421F975EA800803511 /* UIDevice+type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9635AB411F975EA800803511 /* UIDevice+type.swift */; };
 		967E4B811F96255600EC6490 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967E4B801F961A4300EC6490 /* GoogleService-Info.plist */; };
@@ -20,16 +19,13 @@
 		96BB1F5A1EB9C5940083630D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96BB1F581EB9C5940083630D /* LaunchScreen.storyboard */; };
 		96BB1F651EB9C5940083630D /* BackgroundTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F641EB9C5940083630D /* BackgroundTrackerTests.swift */; };
 		96BB1F701EB9C5940083630D /* BackgroundTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F6F1EB9C5940083630D /* BackgroundTrackerUITests.swift */; };
-		96BB1F7E1EB9C5B50083630D /* Trckr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F7D1EB9C5B50083630D /* Trckr.swift */; };
 		96BB1F831EB9C7340083630D /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F811EB9C7340083630D /* Logger.swift */; };
 		96BB1F841EB9C7340083630D /* Timberjack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F821EB9C7340083630D /* Timberjack.swift */; };
 		96BB1F871EB9C7670083630D /* CoordinateBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F861EB9C7670083630D /* CoordinateBounds.swift */; };
 		96BB1F891EB9D5980083630D /* TextViewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F881EB9D5980083630D /* TextViewDestination.swift */; };
+		96C076E91FB0ABE10070B455 /* NotificationsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C076E81FB0ABE10070B455 /* NotificationsUtility.swift */; };
+		96C076EA1FB0AD060070B455 /* trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96C076E41FB0A7220070B455 /* trckr.framework */; };
 		C44CB64E1D0467758D31DEA3 /* Pods_BackgroundTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */; };
-		E9A2CEBD1FABA75B00BF3E86 /* Trckr+geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2CEBC1FABA75B00BF3E86 /* Trckr+geofence.swift */; };
-		E9A2CEC01FABA90F00BF3E86 /* Trckr+background.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2CEBF1FABA90F00BF3E86 /* Trckr+background.swift */; };
-		E9A2CEC21FABAA5000BF3E86 /* Trckr+stationary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2CEC11FABAA5000BF3E86 /* Trckr+stationary.swift */; };
-		E9A2CEC41FABADD700BF3E86 /* Trckr+beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A2CEC31FABADD700BF3E86 /* Trckr+beacon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,12 +50,11 @@
 		1623B5781283B4181E3C8210 /* Pods_BackgroundTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB293657375849ED4870A90 /* Pods-BackgroundTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTracker/Pods-BackgroundTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		67CB4DD61F95FE9F006A9267 /* NotificationsUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUtility.swift; sourceTree = "<group>"; };
 		67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		7301782D9D70569B1D11A562 /* Pods-BackgroundTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerUITests/Pods-BackgroundTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9635AB411F975EA800803511 /* UIDevice+type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+type.swift"; sourceTree = "<group>"; };
 		967E4B801F961A4300EC6490 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		96BB1F4C1EB9C5940083630D /* Trckr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trckr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96BB1F4C1EB9C5940083630D /* TrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BB1F4F1EB9C5940083630D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96BB1F511EB9C5940083630D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		96BB1F541EB9C5940083630D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,19 +67,16 @@
 		96BB1F6B1EB9C5940083630D /* BackgroundTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BackgroundTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BB1F6F1EB9C5940083630D /* BackgroundTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTrackerUITests.swift; sourceTree = "<group>"; };
 		96BB1F711EB9C5940083630D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96BB1F7D1EB9C5B50083630D /* Trckr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trckr.swift; sourceTree = "<group>"; };
 		96BB1F811EB9C7340083630D /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Logging/Logger.swift; sourceTree = "<group>"; };
 		96BB1F821EB9C7340083630D /* Timberjack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Timberjack.swift; path = Logging/Timberjack.swift; sourceTree = "<group>"; };
 		96BB1F861EB9C7670083630D /* CoordinateBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateBounds.swift; sourceTree = "<group>"; };
 		96BB1F881EB9D5980083630D /* TextViewDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextViewDestination.swift; path = Logging/TextViewDestination.swift; sourceTree = "<group>"; };
+		96C076E41FB0A7220070B455 /* trckr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = trckr.framework; path = ../../../../private/tmp/trckr.framework; sourceTree = "<group>"; };
+		96C076E81FB0ABE10070B455 /* NotificationsUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsUtility.swift; sourceTree = "<group>"; };
 		ACE789308A1E5B6705FB7C4C /* Pods-BackgroundTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerUITests/Pods-BackgroundTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE26CF5ECB4A90A49151BD70 /* Pods-BackgroundTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTracker/Pods-BackgroundTracker.release.xcconfig"; sourceTree = "<group>"; };
 		D4595A92E9D77F8DB4ED9A22 /* Pods-BackgroundTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerTests/Pods-BackgroundTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E9A2CEBC1FABA75B00BF3E86 /* Trckr+geofence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trckr+geofence.swift"; sourceTree = "<group>"; };
-		E9A2CEBF1FABA90F00BF3E86 /* Trckr+background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trckr+background.swift"; sourceTree = "<group>"; };
-		E9A2CEC11FABAA5000BF3E86 /* Trckr+stationary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trckr+stationary.swift"; sourceTree = "<group>"; };
-		E9A2CEC31FABADD700BF3E86 /* Trckr+beacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trckr+beacon.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +86,7 @@
 			files = (
 				67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */,
 				5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */,
+				96C076EA1FB0AD060070B455 /* trckr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +125,7 @@
 		42AD9E8BA4ACDDD26AD4074D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96C076E41FB0A7220070B455 /* trckr.framework */,
 				67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */,
 				C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */,
 				384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */,
@@ -155,7 +149,7 @@
 		96BB1F4D1EB9C5940083630D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96BB1F4C1EB9C5940083630D /* Trckr.app */,
+				96BB1F4C1EB9C5940083630D /* TrackerApp.app */,
 				96BB1F601EB9C5940083630D /* BackgroundTrackerTests.xctest */,
 				96BB1F6B1EB9C5940083630D /* BackgroundTrackerUITests.xctest */,
 			);
@@ -174,12 +168,7 @@
 				96BB1F581EB9C5940083630D /* LaunchScreen.storyboard */,
 				96BB1F5B1EB9C5940083630D /* Info.plist */,
 				967E4B801F961A4300EC6490 /* GoogleService-Info.plist */,
-				67CB4DD61F95FE9F006A9267 /* NotificationsUtility.swift */,
-				96BB1F7D1EB9C5B50083630D /* Trckr.swift */,
-				E9A2CEBC1FABA75B00BF3E86 /* Trckr+geofence.swift */,
-				E9A2CEBF1FABA90F00BF3E86 /* Trckr+background.swift */,
-				E9A2CEC11FABAA5000BF3E86 /* Trckr+stationary.swift */,
-				E9A2CEC31FABADD700BF3E86 /* Trckr+beacon.swift */,
+				96C076E81FB0ABE10070B455 /* NotificationsUtility.swift */,
 			);
 			path = BackgroundTracker;
 			sourceTree = "<group>";
@@ -234,7 +223,7 @@
 			);
 			name = BackgroundTracker;
 			productName = BackgroundTracker;
-			productReference = 96BB1F4C1EB9C5940083630D /* Trckr.app */;
+			productReference = 96BB1F4C1EB9C5940083630D /* TrackerApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		96BB1F5F1EB9C5940083630D /* BackgroundTrackerTests */ = {
@@ -543,13 +532,8 @@
 				96BB1F891EB9D5980083630D /* TextViewDestination.swift in Sources */,
 				96BB1F521EB9C5940083630D /* ViewController.swift in Sources */,
 				96BB1F501EB9C5940083630D /* AppDelegate.swift in Sources */,
-				67CB4DD71F95FE9F006A9267 /* NotificationsUtility.swift in Sources */,
-				96BB1F7E1EB9C5B50083630D /* Trckr.swift in Sources */,
-				E9A2CEBD1FABA75B00BF3E86 /* Trckr+geofence.swift in Sources */,
-				E9A2CEC21FABAA5000BF3E86 /* Trckr+stationary.swift in Sources */,
+				96C076E91FB0ABE10070B455 /* NotificationsUtility.swift in Sources */,
 				96BB1F831EB9C7340083630D /* Logger.swift in Sources */,
-				E9A2CEC41FABADD700BF3E86 /* Trckr+beacon.swift in Sources */,
-				E9A2CEC01FABA90F00BF3E86 /* Trckr+background.swift in Sources */,
 				96BB1F871EB9C7670083630D /* CoordinateBounds.swift in Sources */,
 				9635AB421F975EA800803511 /* UIDevice+type.swift in Sources */,
 				96BB1F841EB9C7340083630D /* Timberjack.swift in Sources */,
@@ -708,11 +692,27 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3E8VPPT5YX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GTMSessionFetcher\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GoogleToolboxForMac\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/ObjcExceptionBridging\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/XCGLogger\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/nanopb\"",
+					"\"${PODS_ROOT}/Crashlytics/iOS\"",
+					"\"${PODS_ROOT}/Fabric/iOS\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseCore/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseStorage/Frameworks\"",
+					/tmp,
+				);
 				INFOPLIST_FILE = BackgroundTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.100grams.tracker;
-				PRODUCT_NAME = Trckr;
+				PRODUCT_NAME = TrackerApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -727,11 +727,27 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3E8VPPT5YX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GTMSessionFetcher\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GoogleToolboxForMac\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/ObjcExceptionBridging\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/XCGLogger\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/nanopb\"",
+					"\"${PODS_ROOT}/Crashlytics/iOS\"",
+					"\"${PODS_ROOT}/Fabric/iOS\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseCore/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseStorage/Frameworks\"",
+					/tmp,
+				);
 				INFOPLIST_FILE = BackgroundTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.100grams.tracker;
-				PRODUCT_NAME = Trckr;
+				PRODUCT_NAME = TrackerApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;

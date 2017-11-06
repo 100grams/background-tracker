@@ -8,6 +8,8 @@
 
 import UIKit
 import MessageUI
+import Trckr
+import CoreLocation
 
 class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
@@ -20,7 +22,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         
         // start tracking location
         // TODO: move this to a dedicated VC that explains to the user why location tracking is required
-        Trckr.sharedInstance.trackingEnabled = true
+        Trckr.shared.trackingEnabled = true
 
         let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination", textView: textView)
         
@@ -35,6 +37,30 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         
         Logger.log.add(destination: textViewDestination)
 
+        Geofence.regionCrossed = { (region, type) in
+            if region.identifier == Geofence.RegionType,
+                let circle = region as? CLCircularRegion {
+                NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(circle.center.latitude), \(circle.center.longitude))")
+                Logger.log.debug("Trip started (\(circle.center.latitude), \(circle.center.longitude))")
+            }
+            else if region.identifier == Beacon.RegionType,
+                let beacon = region as? CLBeaconRegion {
+                switch type {
+                case .Exit:
+                    let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
+                    NotificationsUtility.showLocalNotification(title: "Beacon EXIT", message: message)
+                    Logger.log.debug("Beacon EXIT (\(message))")
+                    break
+                case .Entry:
+                    let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
+                    NotificationsUtility.showLocalNotification(title: "Beacon ENTRY", message: message)
+                    Logger.log.debug("Beacon ENTRY (\(message))")
+                    break
+                default:
+                    break
+                }
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
