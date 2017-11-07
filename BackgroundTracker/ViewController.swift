@@ -17,14 +17,20 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        textView.text = ""
+    
+        initScreenLogging()
         
         // start tracking location
         // TODO: move this to a dedicated VC that explains to the user why location tracking is required
         Trckr.shared.delegate = self
         Trckr.shared.trackingEnabled = true
-        
+        // minute hour day(month) month day(week)
+//        Trckr.shared.trackingSchedule = "* 8-19 * * 1,2,3,4,5"
+
+    }
+    
+    func initScreenLogging() {
+        textView.text = ""
         let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination", textView: textView)
         
         textViewDestination.outputLevel = .debug
@@ -39,7 +45,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         Logger.log.add(destination: textViewDestination)
 
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -108,13 +114,16 @@ extension ViewController : TrckrDelegate {
     }
     
     
-    func didCross(region: CLRegion, type: Geofence.GeofenceType) {
+    func didCross(region: CLRegion, type: Geofence.GeofenceType, withinSchedule:Bool) {
         if region.identifier == Geofence.RegionType,
             let circle = region as? CLCircularRegion,
             trip != true {
             trip = true
             NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(circle.center.latitude), \(circle.center.longitude))")
             Logger.log.debug("Trip started (\(circle.center.latitude), \(circle.center.longitude))")
+            if withinSchedule == false {
+                // tag the trip as #personal immediately
+            }
         }
         else if region.identifier == Beacon.RegionType,
             let beacon = region as? CLBeaconRegion {
@@ -133,5 +142,9 @@ extension ViewController : TrckrDelegate {
                 break
             }
         }
+    }
+    
+    func shouldTrackOutsideSchedule() -> Bool {
+        return true // test. In real life: depends on user's choice
     }
 }
