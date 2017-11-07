@@ -59,7 +59,6 @@ class Logger: NSObject {
      */
     class func zip(contentsOf url:URL) -> URL? {
         let logZipPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/\(url.deletingPathExtension().lastPathComponent).zip"
-        cleanZip(path:logZipPath)
         
         if SSZipArchive.createZipFile(atPath: logZipPath, withFilesAtPaths: [url.path]) == false {
             DispatchQueue.main.async {
