@@ -54,7 +54,7 @@
 		7301782D9D70569B1D11A562 /* Pods-BackgroundTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerUITests/Pods-BackgroundTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9635AB411F975EA800803511 /* UIDevice+type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+type.swift"; sourceTree = "<group>"; };
 		967E4B801F961A4300EC6490 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		96BB1F4C1EB9C5940083630D /* TrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96BB1F4C1EB9C5940083630D /* TrckrApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrckrApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96BB1F4F1EB9C5940083630D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96BB1F511EB9C5940083630D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		96BB1F541EB9C5940083630D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 		96BB1F4D1EB9C5940083630D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96BB1F4C1EB9C5940083630D /* TrackerApp.app */,
+				96BB1F4C1EB9C5940083630D /* TrckrApp.app */,
 				96BB1F601EB9C5940083630D /* BackgroundTrackerTests.xctest */,
 				96BB1F6B1EB9C5940083630D /* BackgroundTrackerUITests.xctest */,
 			);
@@ -223,7 +223,7 @@
 			);
 			name = BackgroundTracker;
 			productName = BackgroundTracker;
-			productReference = 96BB1F4C1EB9C5940083630D /* TrackerApp.app */;
+			productReference = 96BB1F4C1EB9C5940083630D /* TrckrApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		96BB1F5F1EB9C5940083630D /* BackgroundTrackerTests */ = {
@@ -712,7 +712,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.100grams.tracker;
-				PRODUCT_NAME = TrackerApp;
+				PRODUCT_NAME = TrckrApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
@@ -747,7 +747,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.100grams.tracker;
-				PRODUCT_NAME = TrackerApp;
+				PRODUCT_NAME = TrckrApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;

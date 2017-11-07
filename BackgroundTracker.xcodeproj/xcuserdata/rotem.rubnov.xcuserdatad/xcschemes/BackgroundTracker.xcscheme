@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "96BB1F4B1EB9C5940083630D"
-               BuildableName = "Trckr.app"
+               BuildableName = "TrackerApp.app"
                BlueprintName = "BackgroundTracker"
                ReferencedContainer = "container:BackgroundTracker.xcodeproj">
             </BuildableReference>
@@ -54,7 +54,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96BB1F4B1EB9C5940083630D"
-            BuildableName = "Trckr.app"
+            BuildableName = "TrackerApp.app"
             BlueprintName = "BackgroundTracker"
             ReferencedContainer = "container:BackgroundTracker.xcodeproj">
          </BuildableReference>
@@ -78,7 +78,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96BB1F4B1EB9C5940083630D"
-            BuildableName = "Trckr.app"
+            BuildableName = "TrackerApp.app"
             BlueprintName = "BackgroundTracker"
             ReferencedContainer = "container:BackgroundTracker.xcodeproj">
          </BuildableReference>
@@ -97,7 +97,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "96BB1F4B1EB9C5940083630D"
-            BuildableName = "Trckr.app"
+            BuildableName = "TrackerApp.app"
             BlueprintName = "BackgroundTracker"
             ReferencedContainer = "container:BackgroundTracker.xcodeproj">
          </BuildableReference>
