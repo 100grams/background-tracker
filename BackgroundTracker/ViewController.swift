@@ -22,8 +22,9 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         
         // start tracking location
         // TODO: move this to a dedicated VC that explains to the user why location tracking is required
+        Trckr.shared.delegate = self
         Trckr.shared.trackingEnabled = true
-
+        
         let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination", textView: textView)
         
         textViewDestination.outputLevel = .debug
@@ -56,7 +57,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         if MFMailComposeViewController.canSendMail() {
             
             DispatchQueue.global().async { [weak self] in
-                if let zipFile = TrckrLog.zip(),
+                if let zipFile = Logger.zip(directory:TrckrLog.archiveDirectory),
                     let data = NSData(contentsOf: zipFile) {
                     DispatchQueue.main.async {
                         let mailComposer = MFMailComposeViewController()
@@ -83,9 +84,9 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
 extension ViewController : TrckrDelegate {
 
-    var trip : Int? {
+    var trip : Bool? {
         get {
-            return UserDefaults.standard.integer(forKey: "trip")
+            return UserDefaults.standard.bool(forKey: "trip")
         }
         set(t) {
             UserDefaults.standard.set(t, forKey: "trip")
@@ -93,17 +94,12 @@ extension ViewController : TrckrDelegate {
     }
 
     func didStartTracking() {
-        if trip == nil {
-            trip = 0
-            if let region = Geofence.shared.existingGeofence() as? CLCircularRegion {
-                NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(region.center.latitude), \(region.center.longitude))")
-                Logger.log.debug("Trip started (\(region.center.latitude), \(region.center.longitude))")
-            }
-        }
+        Logger.log.debug("Trckr started location tracking")
     }
     func didStopTracking() {
-        if trip != nil {
-            trip = nil
+        Logger.log.debug("Trckr stopped location tracking")
+        if trip == true {
+            trip = false
             if let region = Geofence.shared.existingGeofence() as? CLCircularRegion {
                 NotificationsUtility.showLocalNotification(title: "Trip ended", message: "(\(region.center.latitude), \(region.center.longitude))")
                 Logger.log.debug("Trip ended (\(region.center.latitude), \(region.center.longitude))")
@@ -114,7 +110,9 @@ extension ViewController : TrckrDelegate {
     
     func didCross(region: CLRegion, type: Geofence.GeofenceType) {
         if region.identifier == Geofence.RegionType,
-            let circle = region as? CLCircularRegion {
+            let circle = region as? CLCircularRegion,
+            trip != true {
+            trip = true
             NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(circle.center.latitude), \(circle.center.longitude))")
             Logger.log.debug("Trip started (\(circle.center.latitude), \(circle.center.longitude))")
         }

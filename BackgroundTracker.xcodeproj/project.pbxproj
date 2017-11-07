@@ -24,8 +24,9 @@
 		96BB1F871EB9C7670083630D /* CoordinateBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F861EB9C7670083630D /* CoordinateBounds.swift */; };
 		96BB1F891EB9D5980083630D /* TextViewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F881EB9D5980083630D /* TextViewDestination.swift */; };
 		96C076E91FB0ABE10070B455 /* NotificationsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C076E81FB0ABE10070B455 /* NotificationsUtility.swift */; };
+		96C076F01FB1B4400070B455 /* Trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A354151FB0EDCC007EE4EF /* Trckr.framework */; };
+		96C076F11FB1B4400070B455 /* Trckr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9A354151FB0EDCC007EE4EF /* Trckr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C44CB64E1D0467758D31DEA3 /* Pods_BackgroundTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */; };
-		E9A354161FB0EDCC007EE4EF /* Trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A354151FB0EDCC007EE4EF /* Trckr.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,20 @@
 			remoteInfo = BackgroundTracker;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		96C076F21FB1B4400070B455 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				96C076F11FB1B4400070B455 /* Trckr.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		13DFA22AC0A06B48371BBC11 /* Pods-BackgroundTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerTests/Pods-BackgroundTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,7 +101,7 @@
 			files = (
 				67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */,
 				5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */,
-				E9A354161FB0EDCC007EE4EF /* Trckr.framework in Frameworks */,
+				96C076F01FB1B4400070B455 /* Trckr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +231,7 @@
 				4D39B4B02E857BB8F919EE4D /* [CP] Embed Pods Frameworks */,
 				043BD3E587DE2340F6E117FA /* [CP] Copy Pods Resources */,
 				962E9E241F94A0EA00CC24E1 /* Fabric */,
+				96C076F21FB1B4400070B455 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -715,7 +731,7 @@
 				PRODUCT_NAME = TrckrApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -750,7 +766,7 @@
 				PRODUCT_NAME = TrckrApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

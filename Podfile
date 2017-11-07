@@ -6,7 +6,7 @@ target 'BackgroundTracker' do
   use_frameworks!
 
   # Pods for BackgroundTracker
-  pod 'XCGLogger', :git => 'https://github.com/100grams/XCGLogger.git', :branch => '100grams'
+  pod 'XCGLogger', :git => 'https://github.com/100grams/XCGLogger.git'
   pod 'SSZipArchive'
   pod 'Fabric'
   pod 'Crashlytics'
