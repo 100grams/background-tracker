@@ -63,7 +63,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         if MFMailComposeViewController.canSendMail() {
             
             DispatchQueue.global().async { [weak self] in
-                if let zipFile = Logger.zip(directory:TrckrLog.archiveDirectory),
+                if let zipFile = Logger.zip(directory:Log.archiveDirectory),
                     let data = NSData(contentsOf: zipFile) {
                     DispatchQueue.main.async {
                         let mailComposer = MFMailComposeViewController()
@@ -102,11 +102,12 @@ extension ViewController : TrckrDelegate {
     func didStartTracking() {
         Logger.log.debug("Trckr started location tracking")
     }
+    
     func didStopTracking() {
         Logger.log.debug("Trckr stopped location tracking")
         if trip == true {
             trip = false
-            if let region = Geofence.shared.existingGeofence() as? CLCircularRegion {
+            if let region = Geofence.shared.monitoredRegion() as? CLCircularRegion {
                 NotificationsUtility.showLocalNotification(title: "Trip ended", message: "(\(region.center.latitude), \(region.center.longitude))")
                 Logger.log.debug("Trip ended (\(region.center.latitude), \(region.center.longitude))")
             }
@@ -114,18 +115,19 @@ extension ViewController : TrckrDelegate {
     }
     
     
-    func didCross(region: CLRegion, type: Geofence.GeofenceType, withinSchedule:Bool) {
-        if region.identifier == Geofence.RegionType,
+    func didCross(region: CLRegion, type: Geofence.RegionTriggerType, withinSchedule:Bool) {
+        if region.identifier == Geofence.RegionId,
             let circle = region as? CLCircularRegion,
             trip != true {
             trip = true
+            Trckr.shared.storagePolicy = .Last
             NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(circle.center.latitude), \(circle.center.longitude))")
             Logger.log.debug("Trip started (\(circle.center.latitude), \(circle.center.longitude))")
             if withinSchedule == false {
-                // tag the trip as #personal immediately
+                // TODO: tag the trip as #personal immediately
             }
         }
-        else if region.identifier == Beacon.RegionType,
+        else if region.identifier == Beacon.RegionId,
             let beacon = region as? CLBeaconRegion {
             switch type {
             case .Exit:

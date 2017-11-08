@@ -17,8 +17,8 @@ class Logger: NSObject {
     static let log = XCGLogger(identifier: "MainLog", includeDefaultDestinations: true)
 
     class func start() {
-        TrckrLog.start()
-        TrckrLog.didRotateLogFile = { path in
+        Log.start()
+        Log.didRotateLogFile = { path in
             let url = URL(fileURLWithPath: path)
             guard let zipFile = zip(contentsOf: url) else { return }
             guard let data = NSData(contentsOf: zipFile) as Data? else { return }
@@ -83,7 +83,7 @@ class Logger: NSObject {
     
     public class func zippedLogArchive() -> NSData? {
         
-        if let zipFile = zip(directory:TrckrLog.archiveDirectory) {
+        if let zipFile = zip(directory:Log.archiveDirectory) {
             return NSData(contentsOf: zipFile)
         }
         return nil
