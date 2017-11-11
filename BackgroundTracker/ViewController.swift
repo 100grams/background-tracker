@@ -120,7 +120,6 @@ extension ViewController : TrckrDelegate {
             let circle = region as? CLCircularRegion,
             trip != true {
             trip = true
-            Trckr.shared.storagePolicy = .Last
             NotificationsUtility.showLocalNotification(title: "Trip started", message: "(\(circle.center.latitude), \(circle.center.longitude))")
             Logger.log.debug("Trip started (\(circle.center.latitude), \(circle.center.longitude))")
             if withinSchedule == false {
@@ -148,5 +147,34 @@ extension ViewController : TrckrDelegate {
     
     func shouldTrackOutsideSchedule() -> Bool {
         return true // test. In real life: depends on user's choice
+    }
+    
+    func didChangeAuthorization(status: CLAuthorizationStatus) {
+        switch status {
+            // we'd like to get "always" access in order to track locations in the background
+        case .authorizedWhenInUse, .restricted, .denied:
+            showAlertLocationSettings()
+            break
+        default:
+            break
+        }
+    }
+    
+    func showAlertLocationSettings() {
+        
+        if let url = URL(string: UIApplicationOpenSettingsURLString), UIApplication.shared.canOpenURL(url) {
+            
+            let alert = UIAlertController(title: "Enable Location Access", message: "Enable Location Services for Passenger in iOS Settings > Privacy", preferredStyle: .alert)
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let ok = UIAlertAction(title: "Settings", style: .default, handler: { (action) in
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            })
+            
+            alert.addAction(cancel)
+            alert.addAction(ok)
+            alert.preferredAction = ok
+            present(alert, animated: true, completion: nil)
+        }
     }
 }

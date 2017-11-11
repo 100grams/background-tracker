@@ -11,8 +11,6 @@
 		5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */; };
 		67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */; };
 		9635AB421F975EA800803511 /* UIDevice+type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9635AB411F975EA800803511 /* UIDevice+type.swift */; };
-		964F05CE1FB5B3D500260B40 /* Trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A354151FB0EDCC007EE4EF /* Trckr.framework */; };
-		964F05D01FB5B3DE00260B40 /* Trckr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E9A354151FB0EDCC007EE4EF /* Trckr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		967E4B811F96255600EC6490 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967E4B801F961A4300EC6490 /* GoogleService-Info.plist */; };
 		96BB1F501EB9C5940083630D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F4F1EB9C5940083630D /* AppDelegate.swift */; };
 		96BB1F521EB9C5940083630D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BB1F511EB9C5940083630D /* ViewController.swift */; };
@@ -47,13 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		964F05CD1FB5B33A00260B40 /* Embed Frameworks */ = {
+		E95B0B721FB758ED002B74BD /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				964F05D01FB5B3DE00260B40 /* Trckr.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,7 +88,6 @@
 		C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE26CF5ECB4A90A49151BD70 /* Pods-BackgroundTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTracker/Pods-BackgroundTracker.release.xcconfig"; sourceTree = "<group>"; };
 		D4595A92E9D77F8DB4ED9A22 /* Pods-BackgroundTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerTests/Pods-BackgroundTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E9A354151FB0EDCC007EE4EF /* Trckr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Trckr.framework; path = ../../../../private/tmp/Trckr.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +97,6 @@
 			files = (
 				67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */,
 				5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */,
-				964F05CE1FB5B3D500260B40 /* Trckr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +135,6 @@
 		42AD9E8BA4ACDDD26AD4074D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E9A354151FB0EDCC007EE4EF /* Trckr.framework */,
 				67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */,
 				C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */,
 				384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */,
@@ -231,7 +225,7 @@
 				4D39B4B02E857BB8F919EE4D /* [CP] Embed Pods Frameworks */,
 				043BD3E587DE2340F6E117FA /* [CP] Copy Pods Resources */,
 				962E9E241F94A0EA00CC24E1 /* Fabric */,
-				964F05CD1FB5B33A00260B40 /* Embed Frameworks */,
+				E95B0B721FB758ED002B74BD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -456,6 +450,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
 				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
+				"${PODS_ROOT}/Trckr/Trckr.framework",
 				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -465,6 +460,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Trckr.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
