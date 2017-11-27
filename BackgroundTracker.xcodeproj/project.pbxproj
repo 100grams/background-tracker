@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		47FFA020AE6A3E333A868DAE /* Pods_BackgroundTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1623B5781283B4181E3C8210 /* Pods_BackgroundTrackerUITests.framework */; };
 		5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */; };
+		6749C8DA1FCC4787003D606D /* BeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6749C8D91FCC4787003D606D /* BeaconViewController.swift */; };
+		6749C8FB1FCC6FEB003D606D /* Trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6749C8F91FCC6FE1003D606D /* Trckr.framework */; };
+		6749C8FC1FCC6FEB003D606D /* Trckr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6749C8F91FCC6FE1003D606D /* Trckr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */; };
 		9635AB421F975EA800803511 /* UIDevice+type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9635AB411F975EA800803511 /* UIDevice+type.swift */; };
 		967E4B811F96255600EC6490 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 967E4B801F961A4300EC6490 /* GoogleService-Info.plist */; };
@@ -51,6 +54,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				6749C8FC1FCC6FEB003D606D /* Trckr.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +66,8 @@
 		1623B5781283B4181E3C8210 /* Pods_BackgroundTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB293657375849ED4870A90 /* Pods-BackgroundTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTracker/Pods-BackgroundTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6749C8D91FCC4787003D606D /* BeaconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconViewController.swift; sourceTree = "<group>"; };
+		6749C8F91FCC6FE1003D606D /* Trckr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Trckr.framework; sourceTree = "<group>"; };
 		67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		7301782D9D70569B1D11A562 /* Pods-BackgroundTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerUITests/Pods-BackgroundTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9635AB411F975EA800803511 /* UIDevice+type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+type.swift"; sourceTree = "<group>"; };
@@ -96,6 +102,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */,
+				6749C8FB1FCC6FEB003D606D /* Trckr.framework in Frameworks */,
 				5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +175,7 @@
 		96BB1F4E1EB9C5940083630D /* BackgroundTracker */ = {
 			isa = PBXGroup;
 			children = (
+				6749C8F91FCC6FE1003D606D /* Trckr.framework */,
 				96BB1F851EB9C73C0083630D /* Logging */,
 				96BB1F4F1EB9C5940083630D /* AppDelegate.swift */,
 				96BB1F511EB9C5940083630D /* ViewController.swift */,
@@ -178,6 +186,7 @@
 				96BB1F5B1EB9C5940083630D /* Info.plist */,
 				967E4B801F961A4300EC6490 /* GoogleService-Info.plist */,
 				96C076E81FB0ABE10070B455 /* NotificationsUtility.swift */,
+				6749C8D91FCC4787003D606D /* BeaconViewController.swift */,
 			);
 			path = BackgroundTracker;
 			sourceTree = "<group>";
@@ -450,7 +459,6 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
 				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
-				"${PODS_ROOT}/Trckr/Trckr.framework",
 				"${BUILT_PRODUCTS_DIR}/XCGLogger/XCGLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -460,7 +468,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Trckr.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XCGLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -545,6 +552,7 @@
 				96BB1F521EB9C5940083630D /* ViewController.swift in Sources */,
 				96BB1F501EB9C5940083630D /* AppDelegate.swift in Sources */,
 				96C076E91FB0ABE10070B455 /* NotificationsUtility.swift in Sources */,
+				6749C8DA1FCC4787003D606D /* BeaconViewController.swift in Sources */,
 				96BB1F831EB9C7340083630D /* Logger.swift in Sources */,
 				96BB1F871EB9C7670083630D /* CoordinateBounds.swift in Sources */,
 				9635AB421F975EA800803511 /* UIDevice+type.swift in Sources */,
@@ -720,6 +728,8 @@
 					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks\"",
 					"\"${PODS_ROOT}/FirebaseStorage/Frameworks\"",
 					/tmp,
+					"$(PROJECT_DIR)/BackgroundTracker",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = BackgroundTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -756,6 +766,8 @@
 					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks\"",
 					"\"${PODS_ROOT}/FirebaseStorage/Frameworks\"",
 					/tmp,
+					"$(PROJECT_DIR)/BackgroundTracker",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = BackgroundTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

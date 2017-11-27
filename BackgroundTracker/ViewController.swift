@@ -89,7 +89,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 }
 
 extension ViewController : TrckrDelegate {
-
+    
     var trip : Bool? {
         get {
             return UserDefaults.standard.bool(forKey: "trip")
