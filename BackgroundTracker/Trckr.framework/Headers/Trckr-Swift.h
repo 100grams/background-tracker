@@ -174,6 +174,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_feature(modules)
 @import ObjectiveC;
 @import CoreBluetooth;
+@import Foundation;
 @import CoreLocation;
 @import UIKit;
 #endif
@@ -203,8 +204,17 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) Beacon * _No
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
-@class CBCentralManager;
 @class CBPeripheral;
+@class CBService;
+@class CBCharacteristic;
+
+@interface Beacon (SWIFT_EXTENSION(Trckr)) <CBPeripheralDelegate>
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverServices:(NSError * _Nullable)error;
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didDiscoverCharacteristicsForService:(CBService * _Nonnull)service error:(NSError * _Nullable)error;
+- (void)peripheral:(CBPeripheral * _Nonnull)peripheral didUpdateValueForCharacteristic:(CBCharacteristic * _Nonnull)characteristic error:(NSError * _Nullable)error;
+@end
+
+@class CBCentralManager;
 @class NSNumber;
 
 @interface Beacon (SWIFT_EXTENSION(Trckr)) <CBCentralManagerDelegate>
@@ -220,7 +230,10 @@ SWIFT_PROTOCOL("_TtP5Trckr14BeaconDelegate_")
 - (void)didPowerOn;
 /// found a CBPeripheral
 - (void)didDiscoverWithPeripheral:(CBPeripheral * _Nonnull)peripheral;
-- (void)didConnectWithPeripheral:(CBPeripheral * _Nonnull)peripheral;
+- (void)didFindWithPeripheral:(CBPeripheral * _Nonnull)peripheral uuid:(NSUUID * _Nonnull)uuid;
+- (void)didUpdateWithPeripheral:(CBPeripheral * _Nonnull)peripheral newUUID:(NSUUID * _Nonnull)newUUID;
+- (void)didFailToFindUUIDWithPeripheral:(CBPeripheral * _Nonnull)peripheral;
+- (void)didFailToUpdateUUIDWithPeripheral:(CBPeripheral * _Nonnull)peripheral;
 @end
 
 

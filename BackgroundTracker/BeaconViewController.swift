@@ -37,8 +37,12 @@ extension BeaconViewController: BeaconDelegate {
         tableView.reloadData()
     }
     
-    func didConnect(peripheral: CBPeripheral) {
-        
+    func didFind(peripheral: CBPeripheral, uuid: UUID) {
+        print(uuid.uuidString)
+    }
+    
+    func didUpdate(peripheral: CBPeripheral, newUUID: UUID) {
+        print(newUUID.uuidString)
     }
     
 }
@@ -60,7 +64,7 @@ extension BeaconViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let peripheral = Array(discoveredPeripherals)[indexPath.row]
-        Beacon.shared.connect(peripheral: peripheral)
+        Beacon.shared.changeUUID(peripheral: peripheral, newUUID: UUID.init())
     }
     
 }
