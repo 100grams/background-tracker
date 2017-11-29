@@ -45,6 +45,10 @@ extension BeaconViewController: BeaconDelegate {
         print(newUUID.uuidString)
     }
     
+    func didFailToUpdateUUID(peripheral: CBPeripheral) {
+        print("failed")
+    }
+    
 }
 
 extension BeaconViewController: UITableViewDataSource, UITableViewDelegate {
@@ -65,6 +69,7 @@ extension BeaconViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         let peripheral = Array(discoveredPeripherals)[indexPath.row]
         Beacon.shared.changeUUID(peripheral: peripheral, newUUID: UUID.init())
+//        Beacon.shared.getUUID(peripheral: peripheral)
     }
     
 }
