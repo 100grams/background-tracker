@@ -43,6 +43,7 @@ extension BeaconViewController: BeaconDelegate {
     
     func didUpdate(peripheral: CBPeripheral, newUUID: UUID) {
         print(newUUID.uuidString)
+        Beacon.shared.addBeacon(proximityUUID: newUUID, notify: Geofence.RegionTriggerType.All)
     }
     
     func didFailToUpdateUUID(peripheral: CBPeripheral) {

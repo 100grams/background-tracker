@@ -261,6 +261,8 @@ typedef SWIFT_ENUM(NSInteger, RegionTriggerType) {
   RegionTriggerTypeEntry = 0,
 /// Monitor (and notify) when the user <em>exits</em> the region
   RegionTriggerTypeExit = 1,
+/// Monitor both entry and exit
+  RegionTriggerTypeAll = 2,
 };
 
 
