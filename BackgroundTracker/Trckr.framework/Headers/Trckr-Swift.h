@@ -201,7 +201,7 @@ SWIFT_CLASS("_TtC5Trckr6Beacon")
 /// This is the one and only Beacon client instance
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) Beacon * _Nonnull shared;)
 + (Beacon * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class CBCentralManager;

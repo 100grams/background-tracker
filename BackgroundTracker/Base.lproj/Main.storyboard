@@ -115,6 +115,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="0rf-o1-tyj" id="3WY-bz-K1C"/>
+                        <segue destination="rsz-08-Gaw" kind="show" identifier="beaconLoggingSegue" id="9Zg-W3-0sT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jWl-Hf-byb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -138,6 +139,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2C7-xH-XMK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-242" y="139"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="yld-cy-2o0">
+            <objects>
+                <viewController id="rsz-08-Gaw" customClass="ViewController" customModule="TrckrApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6js-Ax-2Ld"/>
+                        <viewControllerLayoutGuide type="bottom" id="Fre-5G-NJb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yr3-aG-EjY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEW-aX-TZC">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="Email Logs" id="TIl-fD-iCo">
+                                        <connections>
+                                            <action selector="sendLogs:" destination="rsz-08-Gaw" id="A63-vl-BiQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kh1-VQ-8nP">
+                                <rect key="frame" x="0.0" y="20" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="sEW-aX-TZC" firstAttribute="leading" secondItem="yr3-aG-EjY" secondAttribute="leading" id="3mn-X2-XHf"/>
+                            <constraint firstAttribute="trailing" secondItem="sEW-aX-TZC" secondAttribute="trailing" id="6CD-Kd-GNu"/>
+                            <constraint firstAttribute="trailing" secondItem="kh1-VQ-8nP" secondAttribute="trailing" id="S68-x6-qsC"/>
+                            <constraint firstItem="sEW-aX-TZC" firstAttribute="top" secondItem="kh1-VQ-8nP" secondAttribute="bottom" id="ey4-LB-KY1"/>
+                            <constraint firstItem="Fre-5G-NJb" firstAttribute="top" secondItem="sEW-aX-TZC" secondAttribute="bottom" id="h9H-TO-trK"/>
+                            <constraint firstItem="kh1-VQ-8nP" firstAttribute="top" secondItem="yr3-aG-EjY" secondAttribute="top" constant="20" id="nwn-EU-AtS"/>
+                            <constraint firstItem="kh1-VQ-8nP" firstAttribute="leading" secondItem="yr3-aG-EjY" secondAttribute="leading" id="zNe-Z5-AHg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="wzr-4G-dw9"/>
+                    <connections>
+                        <outlet property="textView" destination="kh1-VQ-8nP" id="zzU-5O-vtL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lDh-r9-u4e" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1897" y="130"/>
         </scene>
     </scenes>
 </document>

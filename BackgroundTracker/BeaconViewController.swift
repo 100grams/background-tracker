@@ -16,9 +16,12 @@ class BeaconViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var discoveredPeripherals = Set<CBPeripheral>()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //reset datasource and clear table
+        discoveredPeripherals.removeAll()
+        tableView.reloadData()
         Beacon.shared.delegate = self
         
     }
@@ -44,6 +47,7 @@ extension BeaconViewController: BeaconDelegate {
     func didUpdate(peripheral: CBPeripheral, newUUID: UUID) {
         print(newUUID.uuidString)
         Beacon.shared.addBeacon(proximityUUID: newUUID, notify: Geofence.RegionTriggerType.All)
+        performSegue(withIdentifier: "beaconLoggingSegue", sender: nil)
     }
     
     func didFailToUpdateUUID(peripheral: CBPeripheral) {
