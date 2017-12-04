@@ -31,9 +31,9 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     func initScreenLogging() {
         textView.text = ""
-        let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination", textView: textView)
+        let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination.\(randomString(length: 5))", textView: textView)
         
-        textViewDestination.outputLevel = .info
+        textViewDestination.outputLevel = .debug
         textViewDestination.showLogIdentifier = false
         textViewDestination.showFunctionName = true
         textViewDestination.showThreadName = false
@@ -44,6 +44,22 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         
         Logger.log.add(destination: textViewDestination)
 
+    }
+    
+    func randomString(length: Int) -> String {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+        
+        var randomString = ""
+        
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+        
+        return randomString
     }
 
     override func viewDidAppear(_ animated: Bool) {
