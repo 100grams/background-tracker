@@ -12,10 +12,10 @@ import CoreBluetooth
 
 class BeaconViewController: UIViewController {
     
-    let peripheralPrefix = "ebeoo"
+    fileprivate let peripheralPrefix = "ebeoo"
     
     @IBOutlet weak var tableView: UITableView!
-    var discoveredPeripherals = Set<CBPeripheral>()
+    fileprivate var discoveredPeripherals = Set<CBPeripheral>()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

@@ -29,8 +29,9 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     }
     
-    func initScreenLogging() {
+    private func initScreenLogging() {
         textView.text = ""
+        //init the textViewDestination. the identifier has a random string appended to it since the VC might be reused
         let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination.\(randomString(length: 5))", textView: textView)
         
         textViewDestination.outputLevel = .debug
@@ -45,8 +46,8 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         Logger.log.add(destination: textViewDestination)
 
     }
-    
-    func randomString(length: Int) -> String {
+    // to generate the identifier for the textViewDestination
+    private func randomString(length: Int) -> String {
         
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let len = UInt32(letters.length)

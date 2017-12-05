@@ -228,9 +228,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) Beacon * _No
 SWIFT_PROTOCOL("_TtP5Trckr14BeaconDelegate_")
 @protocol BeaconDelegate
 @optional
+/// the Trckr is now ready for beacon/bluetooth operations. do not perform any of the Beacon actions before this method is called
 - (void)didPowerOn;
 /// found a CBPeripheral
 - (void)didDiscoverWithPeripheral:(CBPeripheral * _Nonnull)peripheral;
+/// did find the UUID of a beacon
 - (void)didFindWithPeripheral:(CBPeripheral * _Nonnull)peripheral uuid:(NSUUID * _Nonnull)uuid;
 - (void)didUpdateWithPeripheral:(CBPeripheral * _Nonnull)peripheral newUUID:(NSUUID * _Nonnull)newUUID;
 - (void)didFailToFindUUIDWithPeripheral:(CBPeripheral * _Nonnull)peripheral;
