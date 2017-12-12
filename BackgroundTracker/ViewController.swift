@@ -25,7 +25,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         Trckr.shared.delegate = self
         Trckr.shared.trackingEnabled = true
         // minute hour day(month) month day(week)
-//        Trckr.shared.trackingSchedule = "* 8-19 * * 1,2,3,4,5"
+        Trckr.shared.trackingSchedule = "* 8-20 * * 1,2,3,4,5"
     }
     
     private func initScreenLogging() {
@@ -142,16 +142,15 @@ extension ViewController : TrckrDelegate {
                 // TODO: tag the trip as #personal immediately
             }
         }
-        else if region.identifier == Beacon.RegionId,
-            let beacon = region as? CLBeaconRegion {
+        else if let beacon = region as? CLBeaconRegion {
             switch type {
             case .Exit:
-                let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
+                let message = "(\(String(describing: beacon.identifier)) within schedule: \(withinSchedule)"
                 NotificationsUtility.showLocalNotification(title: "Beacon EXIT", message: message)
                 Logger.log.debug("Beacon EXIT (\(message))")
                 break
             case .Entry:
-                let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
+                let message = "(\(String(describing: beacon.identifier)) within schedule: \(withinSchedule)"
                 NotificationsUtility.showLocalNotification(title: "Beacon ENTRY", message: message)
                 Logger.log.debug("Beacon ENTRY (\(message))")
                 break
