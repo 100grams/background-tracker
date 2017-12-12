@@ -15,7 +15,7 @@ class BeaconViewController: UIViewController {
     fileprivate let peripheralPrefix = "ebeoo"
     
     @IBOutlet weak var tableView: UITableView!
-    fileprivate var discoveredPeripherals = Set<CBPeripheral>()
+    fileprivate var discoveredPeripherals = [CBPeripheral]()
     
     fileprivate var beaconUUIDDict = [CBPeripheral: UUID]()
     
@@ -38,7 +38,9 @@ extension BeaconViewController: BeaconDelegate {
     
     func didDiscover(peripheral: CBPeripheral) {
         print("did discover \(peripheral)")
-        discoveredPeripherals.insert(peripheral)
+        if !discoveredPeripherals.contains(peripheral) {
+            discoveredPeripherals.append(peripheral)
+        }
         tableView.reloadData()
     }
     

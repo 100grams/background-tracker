@@ -26,7 +26,6 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         Trckr.shared.trackingEnabled = true
         // minute hour day(month) month day(week)
 //        Trckr.shared.trackingSchedule = "* 8-19 * * 1,2,3,4,5"
-
     }
     
     private func initScreenLogging() {

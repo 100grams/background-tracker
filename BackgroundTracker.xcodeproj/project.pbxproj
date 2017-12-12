@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		47FFA020AE6A3E333A868DAE /* Pods_BackgroundTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1623B5781283B4181E3C8210 /* Pods_BackgroundTrackerUITests.framework */; };
 		5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */; };
-		6704D9371FDEE2C200211593 /* Trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6704D9361FDEE2C200211593 /* Trckr.framework */; };
-		6704D9391FDEE2C900211593 /* Trckr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6704D9361FDEE2C200211593 /* Trckr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		67082F391FDFF6D20038B6BC /* Trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67082F371FDFF6CD0038B6BC /* Trckr.framework */; };
+		67082F3A1FDFF6D20038B6BC /* Trckr.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67082F371FDFF6CD0038B6BC /* Trckr.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6749C8DA1FCC4787003D606D /* BeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6749C8D91FCC4787003D606D /* BeaconViewController.swift */; };
 		67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */; };
 		9635AB421F975EA800803511 /* UIDevice+type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9635AB411F975EA800803511 /* UIDevice+type.swift */; };
@@ -54,7 +54,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6704D9391FDEE2C900211593 /* Trckr.framework in Embed Frameworks */,
+				67082F3A1FDFF6D20038B6BC /* Trckr.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,7 +66,7 @@
 		1623B5781283B4181E3C8210 /* Pods_BackgroundTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB293657375849ED4870A90 /* Pods-BackgroundTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTracker/Pods-BackgroundTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6704D9361FDEE2C200211593 /* Trckr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Trckr.framework; sourceTree = "<group>"; };
+		67082F371FDFF6CD0038B6BC /* Trckr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Trckr.framework; sourceTree = "<group>"; };
 		6749C8D91FCC4787003D606D /* BeaconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconViewController.swift; sourceTree = "<group>"; };
 		67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		7301782D9D70569B1D11A562 /* Pods-BackgroundTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTrackerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTrackerUITests/Pods-BackgroundTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -102,8 +102,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */,
+				67082F391FDFF6D20038B6BC /* Trckr.framework in Frameworks */,
 				5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */,
-				6704D9371FDEE2C200211593 /* Trckr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +175,7 @@
 		96BB1F4E1EB9C5940083630D /* BackgroundTracker */ = {
 			isa = PBXGroup;
 			children = (
-				6704D9361FDEE2C200211593 /* Trckr.framework */,
+				67082F371FDFF6CD0038B6BC /* Trckr.framework */,
 				96BB1F851EB9C73C0083630D /* Logging */,
 				96BB1F4F1EB9C5940083630D /* AppDelegate.swift */,
 				96BB1F511EB9C5940083630D /* ViewController.swift */,
