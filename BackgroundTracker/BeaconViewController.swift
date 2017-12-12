@@ -17,6 +17,8 @@ class BeaconViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     fileprivate var discoveredPeripherals = Set<CBPeripheral>()
     
+    fileprivate var beaconUUIDDict = [CBPeripheral: UUID]()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //reset datasource and clear table
@@ -42,11 +44,17 @@ extension BeaconViewController: BeaconDelegate {
     
     func didFind(peripheral: CBPeripheral, uuid: UUID) {
         print(uuid.uuidString)
+        beaconUUIDDict[peripheral] = uuid
+        
+        if discoveredPeripherals.contains(peripheral)
+        {
+            tableView.reloadData()
+        }
     }
     
     func didUpdate(peripheral: CBPeripheral, newUUID: UUID) {
         print(newUUID.uuidString)
-        Beacon.shared.addBeacon(proximityUUID: newUUID, notify: Geofence.RegionTriggerType.All)
+        Beacon.shared.addBeacon(proximityUUID: newUUID, notify: Geofence.RegionTriggerType.All, identifier: "Trckr.Beacon.\(newUUID)")
         performSegue(withIdentifier: "beaconLoggingSegue", sender: nil)
     }
     
@@ -65,7 +73,21 @@ extension BeaconViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "beaconCell", for: indexPath)
         
-        cell.textLabel?.text = Array(discoveredPeripherals)[indexPath.row].name
+        let currentPeripheral = Array(discoveredPeripherals)[indexPath.row]
+        
+        cell.textLabel?.text = currentPeripheral.name
+
+        if let currentUUID = beaconUUIDDict[currentPeripheral] {
+            
+            let monitoredBeaconUUIDs = Beacon.shared.getMonitoredBeaconRegions().map { $0.proximityUUID }
+            
+            cell.detailTextLabel?.text = "\(currentUUID): " + (monitoredBeaconUUIDs.contains(currentUUID) ? "connected" : "not connected")
+            
+        }
+        else {
+            cell.detailTextLabel?.text = "status unknown"
+            Beacon.shared.getUUID(peripheral: currentPeripheral)
+        }
         
         return cell
     }
