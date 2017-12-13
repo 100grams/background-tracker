@@ -44,6 +44,7 @@
 	<string>Motion data is used for detecting your travel mode.</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>bluetooth-central</string>
 		<string>location</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

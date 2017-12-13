@@ -1,0 +1,11 @@
+framework module Trckr {
+  umbrella header "Trckr.h"
+
+  export *
+  module * { export * }
+}
+
+module Trckr.Swift {
+    header "Trckr-Swift.h"
+    requires objc
+}

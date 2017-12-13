@@ -25,13 +25,13 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         Trckr.shared.delegate = self
         Trckr.shared.trackingEnabled = true
         // minute hour day(month) month day(week)
-//        Trckr.shared.trackingSchedule = "* 8-19 * * 1,2,3,4,5"
-
+        Trckr.shared.trackingSchedule = "* 8-20 * * 1,2,4,5"
     }
     
-    func initScreenLogging() {
+    private func initScreenLogging() {
         textView.text = ""
-        let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination", textView: textView)
+        //init the textViewDestination. the identifier has a random string appended to it since the VC might be reused
+        let textViewDestination = TextViewDestination(owner: Logger.log, identifier: "TrackerLogger.textViewDestination.\(randomString(length: 5))", textView: textView)
         
         textViewDestination.outputLevel = .debug
         textViewDestination.showLogIdentifier = false
@@ -44,6 +44,22 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         
         Logger.log.add(destination: textViewDestination)
 
+    }
+    // to generate the identifier for the textViewDestination
+    private func randomString(length: Int) -> String {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+        
+        var randomString = ""
+        
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+        
+        return randomString
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -63,13 +79,14 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         if MFMailComposeViewController.canSendMail() {
             
             DispatchQueue.global().async { [weak self] in
-                if let zipFile = Logger.zip(directory:Log.archiveDirectory),
+//                if let zipFile = Logger.zip(directory:Log.logFileName),
+                if let zipFile = Logger.zip(contentsOf: URL(string: Log.logFileName)!),
                     let data = NSData(contentsOf: zipFile) {
                     DispatchQueue.main.async {
                         let mailComposer = MFMailComposeViewController()
                         mailComposer.setSubject("CoreTracker Logs")
                         mailComposer.addAttachmentData(data as Data, mimeType: "application/zip", fileName: "logs.zip")
-                        mailComposer.setToRecipients(["rotem@100grams.nl"])
+                        mailComposer.setToRecipients(["rajeev.bhatia@100grams.nl"])
                         mailComposer.mailComposeDelegate = self
                         
                         self?.present(mailComposer, animated: true, completion: nil)
@@ -89,7 +106,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
 }
 
 extension ViewController : TrckrDelegate {
-
+    
     var trip : Bool? {
         get {
             return UserDefaults.standard.bool(forKey: "trip")
@@ -126,16 +143,15 @@ extension ViewController : TrckrDelegate {
                 // TODO: tag the trip as #personal immediately
             }
         }
-        else if region.identifier == Beacon.RegionId,
-            let beacon = region as? CLBeaconRegion {
+        else if let beacon = region as? CLBeaconRegion {
             switch type {
             case .Exit:
-                let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
+                let message = "(\(String(describing: beacon.identifier)) within schedule: \(withinSchedule)"
                 NotificationsUtility.showLocalNotification(title: "Beacon EXIT", message: message)
                 Logger.log.debug("Beacon EXIT (\(message))")
                 break
             case .Entry:
-                let message = "(\(String(describing: beacon.major))/\(String(describing: beacon.minor)))"
+                let message = "(\(String(describing: beacon.identifier)) within schedule: \(withinSchedule)"
                 NotificationsUtility.showLocalNotification(title: "Beacon ENTRY", message: message)
                 Logger.log.debug("Beacon ENTRY (\(message))")
                 break
