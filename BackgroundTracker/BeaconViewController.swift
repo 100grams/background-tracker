@@ -37,7 +37,7 @@ extension BeaconViewController: BeaconDelegate {
     }
     
     func didDiscover(peripheral: CBPeripheral) {
-        print("did discover \(peripheral)")
+        Logger.log.info("did discover \(peripheral)")
         if !discoveredPeripherals.contains(peripheral) {
             discoveredPeripherals.append(peripheral)
         }
@@ -45,7 +45,7 @@ extension BeaconViewController: BeaconDelegate {
     }
     
     func didFind(peripheral: CBPeripheral, uuid: UUID) {
-        print(uuid.uuidString)
+        
         beaconUUIDDict[peripheral] = uuid
         
         if discoveredPeripherals.contains(peripheral)
@@ -55,13 +55,13 @@ extension BeaconViewController: BeaconDelegate {
     }
     
     func didUpdate(peripheral: CBPeripheral, newUUID: UUID) {
-        print(newUUID.uuidString)
+        Logger.log.info("updated uuid of \(peripheral) to \(newUUID.uuidString)")
         Beacon.shared.addBeacon(proximityUUID: newUUID, notify: Geofence.RegionTriggerType.All, identifier: "Trckr.Beacon.\(newUUID)")
         performSegue(withIdentifier: "beaconLoggingSegue", sender: nil)
     }
     
     func didFailToUpdateUUID(peripheral: CBPeripheral) {
-        print("failed")
+        Logger.log.info("failed to update uuid for peripheral \(peripheral)")
     }
     
 }
