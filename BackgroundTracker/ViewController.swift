@@ -25,7 +25,7 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         Trckr.shared.delegate = self
         Trckr.shared.trackingEnabled = true
         // minute hour day(month) month day(week)
-        Trckr.shared.trackingSchedule = "* 8-20 * * 1,2,3,4,5"
+        Trckr.shared.trackingSchedule = "* 8-20 * * 1,2,4,5"
     }
     
     private func initScreenLogging() {
@@ -79,13 +79,14 @@ class ViewController: UIViewController, MFMailComposeViewControllerDelegate {
         if MFMailComposeViewController.canSendMail() {
             
             DispatchQueue.global().async { [weak self] in
-                if let zipFile = Logger.zip(directory:Log.archiveDirectory),
+//                if let zipFile = Logger.zip(directory:Log.logFileName),
+                if let zipFile = Logger.zip(contentsOf: URL(string: Log.logFileName)!),
                     let data = NSData(contentsOf: zipFile) {
                     DispatchQueue.main.async {
                         let mailComposer = MFMailComposeViewController()
                         mailComposer.setSubject("CoreTracker Logs")
                         mailComposer.addAttachmentData(data as Data, mimeType: "application/zip", fileName: "logs.zip")
-                        mailComposer.setToRecipients(["rotem@100grams.nl"])
+                        mailComposer.setToRecipients(["rajeev.bhatia@100grams.nl"])
                         mailComposer.mailComposeDelegate = self
                         
                         self?.present(mailComposer, animated: true, completion: nil)

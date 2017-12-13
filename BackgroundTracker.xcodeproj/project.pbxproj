@@ -9,6 +9,57 @@
 /* Begin PBXBuildFile section */
 		47FFA020AE6A3E333A868DAE /* Pods_BackgroundTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1623B5781283B4181E3C8210 /* Pods_BackgroundTrackerUITests.framework */; };
 		5E8BA4F6D1D500F88BD0A5ED /* Pods_BackgroundTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0BD51E3DC721196423D21DE /* Pods_BackgroundTracker.framework */; };
+		671143181FE15C9D00F6C4A9 /* Den Haag centraal.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142E51FE15C9400F6C4A9 /* Den Haag centraal.gpx */; };
+		671143191FE15C9D00F6C4A9 /* trace_drive_new_jersey.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142E61FE15C9400F6C4A9 /* trace_drive_new_jersey.gpx */; };
+		6711431A1FE15C9D00F6C4A9 /* Lyon-France.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142E71FE15C9400F6C4A9 /* Lyon-France.gpx */; };
+		6711431B1FE15C9D00F6C4A9 /* Leidseplein.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142E81FE15C9400F6C4A9 /* Leidseplein.gpx */; };
+		6711431C1FE15C9D00F6C4A9 /* 100grams_to_francesco.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142E91FE15C9400F6C4A9 /* 100grams_to_francesco.gpx */; };
+		6711431D1FE15C9D00F6C4A9 /* AppleStoreNYC.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142EA1FE15C9400F6C4A9 /* AppleStoreNYC.gpx */; };
+		6711431E1FE15C9D00F6C4A9 /* Muiderpoort.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142EB1FE15C9400F6C4A9 /* Muiderpoort.gpx */; };
+		6711431F1FE15C9D00F6C4A9 /* drive-tiko-home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142EC1FE15C9400F6C4A9 /* drive-tiko-home.gpx */; };
+		671143201FE15C9D00F6C4A9 /* 30967.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142ED1FE15C9400F6C4A9 /* 30967.gpx */; };
+		671143211FE15C9D00F6C4A9 /* London Holborn.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142EE1FE15C9400F6C4A9 /* London Holborn.gpx */; };
+		671143221FE15C9D00F6C4A9 /* trace-drive-IL.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142EF1FE15C9400F6C4A9 /* trace-drive-IL.gpx */; };
+		671143231FE15C9D00F6C4A9 /* trace-ceramplein-pathé-city-tram.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F01FE15C9500F6C4A9 /* trace-ceramplein-pathé-city-tram.gpx */; };
+		671143241FE15C9D00F6C4A9 /* 100grams_ceramplein_bike.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F11FE15C9500F6C4A9 /* 100grams_ceramplein_bike.gpx */; };
+		671143251FE15C9D00F6C4A9 /* trace-ceramplein-100grams-bus22.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F21FE15C9500F6C4A9 /* trace-ceramplein-100grams-bus22.gpx */; };
+		671143261FE15C9D00F6C4A9 /* 100grams.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F31FE15C9500F6C4A9 /* 100grams.gpx */; };
+		671143271FE15C9D00F6C4A9 /* 49stNYC.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F41FE15C9600F6C4A9 /* 49stNYC.gpx */; };
+		671143281FE15C9D00F6C4A9 /* OnTrain.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F51FE15C9600F6C4A9 /* OnTrain.gpx */; };
+		671143291FE15C9D00F6C4A9 /* Almere-Buiten.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F61FE15C9600F6C4A9 /* Almere-Buiten.gpx */; };
+		6711432A1FE15C9D00F6C4A9 /* trace_drive_France_Belgium.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F71FE15C9600F6C4A9 /* trace_drive_France_Belgium.gpx */; };
+		6711432B1FE15C9D00F6C4A9 /* Istanbul-Airport.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F81FE15C9600F6C4A9 /* Istanbul-Airport.gpx */; };
+		6711432C1FE15C9D00F6C4A9 /* trace-ceramplein-100grams-bike.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142F91FE15C9600F6C4A9 /* trace-ceramplein-100grams-bike.gpx */; };
+		6711432D1FE15C9D00F6C4A9 /* francesco_to_100grams.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142FA1FE15C9700F6C4A9 /* francesco_to_100grams.gpx */; };
+		6711432E1FE15C9D00F6C4A9 /* 1000km-to-100grams.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142FB1FE15C9700F6C4A9 /* 1000km-to-100grams.gpx */; };
+		6711432F1FE15C9D00F6C4A9 /* Central-Park.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142FC1FE15C9700F6C4A9 /* Central-Park.gpx */; };
+		671143301FE15C9D00F6C4A9 /* stationary-ceramplein.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142FD1FE15C9700F6C4A9 /* stationary-ceramplein.gpx */; };
+		671143311FE15C9D00F6C4A9 /* WeteringCircuit.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142FE1FE15C9700F6C4A9 /* WeteringCircuit.gpx */; };
+		671143321FE15C9D00F6C4A9 /* leidseplein13.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671142FF1FE15C9700F6C4A9 /* leidseplein13.gpx */; };
+		671143331FE15C9D00F6C4A9 /* Time-Square.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143001FE15C9700F6C4A9 /* Time-Square.gpx */; };
+		671143341FE15C9D00F6C4A9 /* 30km-to-100grams.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143011FE15C9800F6C4A9 /* 30km-to-100grams.gpx */; };
+		671143351FE15C9D00F6C4A9 /* trace_bus_nj_nyc.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143021FE15C9800F6C4A9 /* trace_bus_nj_nyc.gpx */; };
+		671143361FE15C9D00F6C4A9 /* trace-walk-flevopark.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143031FE15C9800F6C4A9 /* trace-walk-flevopark.gpx */; };
+		671143371FE15C9D00F6C4A9 /* MaidenLn.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143041FE15C9800F6C4A9 /* MaidenLn.gpx */; };
+		671143381FE15C9D00F6C4A9 /* London Heathrow.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143051FE15C9800F6C4A9 /* London Heathrow.gpx */; };
+		671143391FE15C9D00F6C4A9 /* ocala-FL.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143061FE15C9800F6C4A9 /* ocala-FL.gpx */; };
+		6711433A1FE15C9D00F6C4A9 /* hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143071FE15C9900F6C4A9 /* hoofddorp.gpx */; };
+		6711433B1FE15C9D00F6C4A9 /* Appleton_museum_Ocala_FL.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143081FE15C9900F6C4A9 /* Appleton_museum_Ocala_FL.gpx */; };
+		6711433C1FE15C9D00F6C4A9 /* drive_zaandam_amsterdam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143091FE15C9900F6C4A9 /* drive_zaandam_amsterdam.gpx */; };
+		6711433D1FE15C9D00F6C4A9 /* Leidsestraat7.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6711430A1FE15C9900F6C4A9 /* Leidsestraat7.gpx */; };
+		6711433E1FE15C9D00F6C4A9 /* bus_ride_from_home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6711430B1FE15C9900F6C4A9 /* bus_ride_from_home.gpx */; };
+		6711433F1FE15C9D00F6C4A9 /* Javastraat.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6711430C1FE15C9900F6C4A9 /* Javastraat.gpx */; };
+		671143401FE15C9D00F6C4A9 /* Rotterdam-centrum.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6711430D1FE15C9A00F6C4A9 /* Rotterdam-centrum.gpx */; };
+		671143411FE15C9D00F6C4A9 /* trace_transit_100grams_yerseke.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6711430E1FE15C9A00F6C4A9 /* trace_transit_100grams_yerseke.gpx */; };
+		671143421FE15C9D00F6C4A9 /* Ceramplein 70.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6711430F1FE15C9A00F6C4A9 /* Ceramplein 70.gpx */; };
+		671143431FE15C9D00F6C4A9 /* Vomar.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143101FE15C9B00F6C4A9 /* Vomar.gpx */; };
+		671143441FE15C9D00F6C4A9 /* LexingtonAve-Brooklyn.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143111FE15C9B00F6C4A9 /* LexingtonAve-Brooklyn.gpx */; };
+		671143451FE15C9D00F6C4A9 /* NYU.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143121FE15C9B00F6C4A9 /* NYU.gpx */; };
+		671143461FE15C9D00F6C4A9 /* drive-zwembad-home.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143131FE15C9B00F6C4A9 /* drive-zwembad-home.gpx */; };
+		671143471FE15C9D00F6C4A9 /* haarlem_100grams_transit.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143141FE15C9C00F6C4A9 /* haarlem_100grams_transit.gpx */; };
+		671143481FE15C9D00F6C4A9 /* trace-ceramplein-muiderpoot.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143151FE15C9C00F6C4A9 /* trace-ceramplein-muiderpoot.gpx */; };
+		671143491FE15C9D00F6C4A9 /* Amsterdam-Centraal.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143161FE15C9C00F6C4A9 /* Amsterdam-Centraal.gpx */; };
+		6711434A1FE15C9D00F6C4A9 /* tran_ride_ceramplein_tunfun.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 671143171FE15C9C00F6C4A9 /* tran_ride_ceramplein_tunfun.gpx */; };
 		6749C8DA1FCC4787003D606D /* BeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6749C8D91FCC4787003D606D /* BeaconViewController.swift */; };
 		67CB4DD91F95FF7D006A9267 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */; };
 		67F79A1B1FE02FF1008C1D33 /* Trckr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67F79A191FE02FEC008C1D33 /* Trckr.framework */; };
@@ -66,6 +117,57 @@
 		1623B5781283B4181E3C8210 /* Pods_BackgroundTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB293657375849ED4870A90 /* Pods-BackgroundTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgroundTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgroundTracker/Pods-BackgroundTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		384725B8427847EDF219173B /* Pods_BackgroundTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgroundTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		671142E51FE15C9400F6C4A9 /* Den Haag centraal.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Den Haag centraal.gpx"; sourceTree = "<group>"; };
+		671142E61FE15C9400F6C4A9 /* trace_drive_new_jersey.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trace_drive_new_jersey.gpx; sourceTree = "<group>"; };
+		671142E71FE15C9400F6C4A9 /* Lyon-France.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Lyon-France.gpx"; sourceTree = "<group>"; };
+		671142E81FE15C9400F6C4A9 /* Leidseplein.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Leidseplein.gpx; sourceTree = "<group>"; };
+		671142E91FE15C9400F6C4A9 /* 100grams_to_francesco.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 100grams_to_francesco.gpx; sourceTree = "<group>"; };
+		671142EA1FE15C9400F6C4A9 /* AppleStoreNYC.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AppleStoreNYC.gpx; sourceTree = "<group>"; };
+		671142EB1FE15C9400F6C4A9 /* Muiderpoort.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Muiderpoort.gpx; sourceTree = "<group>"; };
+		671142EC1FE15C9400F6C4A9 /* drive-tiko-home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "drive-tiko-home.gpx"; sourceTree = "<group>"; };
+		671142ED1FE15C9400F6C4A9 /* 30967.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 30967.gpx; sourceTree = "<group>"; };
+		671142EE1FE15C9400F6C4A9 /* London Holborn.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "London Holborn.gpx"; sourceTree = "<group>"; };
+		671142EF1FE15C9400F6C4A9 /* trace-drive-IL.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "trace-drive-IL.gpx"; sourceTree = "<group>"; };
+		671142F01FE15C9500F6C4A9 /* trace-ceramplein-pathé-city-tram.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "trace-ceramplein-pathé-city-tram.gpx"; sourceTree = "<group>"; };
+		671142F11FE15C9500F6C4A9 /* 100grams_ceramplein_bike.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 100grams_ceramplein_bike.gpx; sourceTree = "<group>"; };
+		671142F21FE15C9500F6C4A9 /* trace-ceramplein-100grams-bus22.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "trace-ceramplein-100grams-bus22.gpx"; sourceTree = "<group>"; };
+		671142F31FE15C9500F6C4A9 /* 100grams.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 100grams.gpx; sourceTree = "<group>"; };
+		671142F41FE15C9600F6C4A9 /* 49stNYC.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 49stNYC.gpx; sourceTree = "<group>"; };
+		671142F51FE15C9600F6C4A9 /* OnTrain.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = OnTrain.gpx; sourceTree = "<group>"; };
+		671142F61FE15C9600F6C4A9 /* Almere-Buiten.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Almere-Buiten.gpx"; sourceTree = "<group>"; };
+		671142F71FE15C9600F6C4A9 /* trace_drive_France_Belgium.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trace_drive_France_Belgium.gpx; sourceTree = "<group>"; };
+		671142F81FE15C9600F6C4A9 /* Istanbul-Airport.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Istanbul-Airport.gpx"; sourceTree = "<group>"; };
+		671142F91FE15C9600F6C4A9 /* trace-ceramplein-100grams-bike.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "trace-ceramplein-100grams-bike.gpx"; sourceTree = "<group>"; };
+		671142FA1FE15C9700F6C4A9 /* francesco_to_100grams.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = francesco_to_100grams.gpx; sourceTree = "<group>"; };
+		671142FB1FE15C9700F6C4A9 /* 1000km-to-100grams.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "1000km-to-100grams.gpx"; sourceTree = "<group>"; };
+		671142FC1FE15C9700F6C4A9 /* Central-Park.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Central-Park.gpx"; sourceTree = "<group>"; };
+		671142FD1FE15C9700F6C4A9 /* stationary-ceramplein.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "stationary-ceramplein.gpx"; sourceTree = "<group>"; };
+		671142FE1FE15C9700F6C4A9 /* WeteringCircuit.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = WeteringCircuit.gpx; sourceTree = "<group>"; };
+		671142FF1FE15C9700F6C4A9 /* leidseplein13.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = leidseplein13.gpx; sourceTree = "<group>"; };
+		671143001FE15C9700F6C4A9 /* Time-Square.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Time-Square.gpx"; sourceTree = "<group>"; };
+		671143011FE15C9800F6C4A9 /* 30km-to-100grams.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "30km-to-100grams.gpx"; sourceTree = "<group>"; };
+		671143021FE15C9800F6C4A9 /* trace_bus_nj_nyc.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trace_bus_nj_nyc.gpx; sourceTree = "<group>"; };
+		671143031FE15C9800F6C4A9 /* trace-walk-flevopark.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "trace-walk-flevopark.gpx"; sourceTree = "<group>"; };
+		671143041FE15C9800F6C4A9 /* MaidenLn.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = MaidenLn.gpx; sourceTree = "<group>"; };
+		671143051FE15C9800F6C4A9 /* London Heathrow.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "London Heathrow.gpx"; sourceTree = "<group>"; };
+		671143061FE15C9800F6C4A9 /* ocala-FL.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "ocala-FL.gpx"; sourceTree = "<group>"; };
+		671143071FE15C9900F6C4A9 /* hoofddorp.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hoofddorp.gpx; sourceTree = "<group>"; };
+		671143081FE15C9900F6C4A9 /* Appleton_museum_Ocala_FL.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Appleton_museum_Ocala_FL.gpx; sourceTree = "<group>"; };
+		671143091FE15C9900F6C4A9 /* drive_zaandam_amsterdam.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = drive_zaandam_amsterdam.gpx; sourceTree = "<group>"; };
+		6711430A1FE15C9900F6C4A9 /* Leidsestraat7.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Leidsestraat7.gpx; sourceTree = "<group>"; };
+		6711430B1FE15C9900F6C4A9 /* bus_ride_from_home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = bus_ride_from_home.gpx; sourceTree = "<group>"; };
+		6711430C1FE15C9900F6C4A9 /* Javastraat.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Javastraat.gpx; sourceTree = "<group>"; };
+		6711430D1FE15C9A00F6C4A9 /* Rotterdam-centrum.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Rotterdam-centrum.gpx"; sourceTree = "<group>"; };
+		6711430E1FE15C9A00F6C4A9 /* trace_transit_100grams_yerseke.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trace_transit_100grams_yerseke.gpx; sourceTree = "<group>"; };
+		6711430F1FE15C9A00F6C4A9 /* Ceramplein 70.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Ceramplein 70.gpx"; sourceTree = "<group>"; };
+		671143101FE15C9B00F6C4A9 /* Vomar.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Vomar.gpx; sourceTree = "<group>"; };
+		671143111FE15C9B00F6C4A9 /* LexingtonAve-Brooklyn.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "LexingtonAve-Brooklyn.gpx"; sourceTree = "<group>"; };
+		671143121FE15C9B00F6C4A9 /* NYU.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NYU.gpx; sourceTree = "<group>"; };
+		671143131FE15C9B00F6C4A9 /* drive-zwembad-home.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "drive-zwembad-home.gpx"; sourceTree = "<group>"; };
+		671143141FE15C9C00F6C4A9 /* haarlem_100grams_transit.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = haarlem_100grams_transit.gpx; sourceTree = "<group>"; };
+		671143151FE15C9C00F6C4A9 /* trace-ceramplein-muiderpoot.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "trace-ceramplein-muiderpoot.gpx"; sourceTree = "<group>"; };
+		671143161FE15C9C00F6C4A9 /* Amsterdam-Centraal.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Amsterdam-Centraal.gpx"; sourceTree = "<group>"; };
+		671143171FE15C9C00F6C4A9 /* tran_ride_ceramplein_tunfun.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tran_ride_ceramplein_tunfun.gpx; sourceTree = "<group>"; };
 		6749C8D91FCC4787003D606D /* BeaconViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconViewController.swift; sourceTree = "<group>"; };
 		67CB4DD81F95FF7D006A9267 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		67F79A191FE02FEC008C1D33 /* Trckr.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Trckr.framework; path = ../../../../../private/tmp/Trckr.framework; sourceTree = "<group>"; };
@@ -150,6 +252,64 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		671142E41FE15C4E00F6C4A9 /* gpx */ = {
+			isa = PBXGroup;
+			children = (
+				671143011FE15C9800F6C4A9 /* 30km-to-100grams.gpx */,
+				671142F41FE15C9600F6C4A9 /* 49stNYC.gpx */,
+				671142F11FE15C9500F6C4A9 /* 100grams_ceramplein_bike.gpx */,
+				671142E91FE15C9400F6C4A9 /* 100grams_to_francesco.gpx */,
+				671142F31FE15C9500F6C4A9 /* 100grams.gpx */,
+				671142FB1FE15C9700F6C4A9 /* 1000km-to-100grams.gpx */,
+				671142ED1FE15C9400F6C4A9 /* 30967.gpx */,
+				671142F61FE15C9600F6C4A9 /* Almere-Buiten.gpx */,
+				671143161FE15C9C00F6C4A9 /* Amsterdam-Centraal.gpx */,
+				671142EA1FE15C9400F6C4A9 /* AppleStoreNYC.gpx */,
+				671143081FE15C9900F6C4A9 /* Appleton_museum_Ocala_FL.gpx */,
+				6711430B1FE15C9900F6C4A9 /* bus_ride_from_home.gpx */,
+				671142FC1FE15C9700F6C4A9 /* Central-Park.gpx */,
+				6711430F1FE15C9A00F6C4A9 /* Ceramplein 70.gpx */,
+				671142E51FE15C9400F6C4A9 /* Den Haag centraal.gpx */,
+				671143091FE15C9900F6C4A9 /* drive_zaandam_amsterdam.gpx */,
+				671142EC1FE15C9400F6C4A9 /* drive-tiko-home.gpx */,
+				671143131FE15C9B00F6C4A9 /* drive-zwembad-home.gpx */,
+				671142FA1FE15C9700F6C4A9 /* francesco_to_100grams.gpx */,
+				671143141FE15C9C00F6C4A9 /* haarlem_100grams_transit.gpx */,
+				671143071FE15C9900F6C4A9 /* hoofddorp.gpx */,
+				671142F81FE15C9600F6C4A9 /* Istanbul-Airport.gpx */,
+				6711430C1FE15C9900F6C4A9 /* Javastraat.gpx */,
+				671142E81FE15C9400F6C4A9 /* Leidseplein.gpx */,
+				671142FF1FE15C9700F6C4A9 /* leidseplein13.gpx */,
+				6711430A1FE15C9900F6C4A9 /* Leidsestraat7.gpx */,
+				671143111FE15C9B00F6C4A9 /* LexingtonAve-Brooklyn.gpx */,
+				671143051FE15C9800F6C4A9 /* London Heathrow.gpx */,
+				671142EE1FE15C9400F6C4A9 /* London Holborn.gpx */,
+				671142E71FE15C9400F6C4A9 /* Lyon-France.gpx */,
+				671143041FE15C9800F6C4A9 /* MaidenLn.gpx */,
+				671142EB1FE15C9400F6C4A9 /* Muiderpoort.gpx */,
+				671143121FE15C9B00F6C4A9 /* NYU.gpx */,
+				671143061FE15C9800F6C4A9 /* ocala-FL.gpx */,
+				671142F51FE15C9600F6C4A9 /* OnTrain.gpx */,
+				6711430D1FE15C9A00F6C4A9 /* Rotterdam-centrum.gpx */,
+				671142FD1FE15C9700F6C4A9 /* stationary-ceramplein.gpx */,
+				671143001FE15C9700F6C4A9 /* Time-Square.gpx */,
+				671143021FE15C9800F6C4A9 /* trace_bus_nj_nyc.gpx */,
+				671142F71FE15C9600F6C4A9 /* trace_drive_France_Belgium.gpx */,
+				671142E61FE15C9400F6C4A9 /* trace_drive_new_jersey.gpx */,
+				6711430E1FE15C9A00F6C4A9 /* trace_transit_100grams_yerseke.gpx */,
+				671142F91FE15C9600F6C4A9 /* trace-ceramplein-100grams-bike.gpx */,
+				671142F21FE15C9500F6C4A9 /* trace-ceramplein-100grams-bus22.gpx */,
+				671143151FE15C9C00F6C4A9 /* trace-ceramplein-muiderpoot.gpx */,
+				671142F01FE15C9500F6C4A9 /* trace-ceramplein-pathé-city-tram.gpx */,
+				671142EF1FE15C9400F6C4A9 /* trace-drive-IL.gpx */,
+				671143031FE15C9800F6C4A9 /* trace-walk-flevopark.gpx */,
+				671143171FE15C9C00F6C4A9 /* tran_ride_ceramplein_tunfun.gpx */,
+				671143101FE15C9B00F6C4A9 /* Vomar.gpx */,
+				671142FE1FE15C9700F6C4A9 /* WeteringCircuit.gpx */,
+			);
+			name = gpx;
+			sourceTree = "<group>";
+		};
 		96BB1F431EB9C5940083630D = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +335,7 @@
 		96BB1F4E1EB9C5940083630D /* BackgroundTracker */ = {
 			isa = PBXGroup;
 			children = (
+				671142E41FE15C4E00F6C4A9 /* gpx */,
 				67F79A191FE02FEC008C1D33 /* Trckr.framework */,
 				96BB1F851EB9C73C0083630D /* Logging */,
 				96BB1F4F1EB9C5940083630D /* AppDelegate.swift */,
@@ -346,10 +507,61 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6711432D1FE15C9D00F6C4A9 /* francesco_to_100grams.gpx in Resources */,
+				671143481FE15C9D00F6C4A9 /* trace-ceramplein-muiderpoot.gpx in Resources */,
 				96BB1F5A1EB9C5940083630D /* LaunchScreen.storyboard in Resources */,
+				6711431E1FE15C9D00F6C4A9 /* Muiderpoort.gpx in Resources */,
+				6711431C1FE15C9D00F6C4A9 /* 100grams_to_francesco.gpx in Resources */,
+				6711433F1FE15C9D00F6C4A9 /* Javastraat.gpx in Resources */,
+				671143471FE15C9D00F6C4A9 /* haarlem_100grams_transit.gpx in Resources */,
+				6711432C1FE15C9D00F6C4A9 /* trace-ceramplein-100grams-bike.gpx in Resources */,
+				671143451FE15C9D00F6C4A9 /* NYU.gpx in Resources */,
+				671143251FE15C9D00F6C4A9 /* trace-ceramplein-100grams-bus22.gpx in Resources */,
+				671143181FE15C9D00F6C4A9 /* Den Haag centraal.gpx in Resources */,
+				671143381FE15C9D00F6C4A9 /* London Heathrow.gpx in Resources */,
+				6711433D1FE15C9D00F6C4A9 /* Leidsestraat7.gpx in Resources */,
+				671143461FE15C9D00F6C4A9 /* drive-zwembad-home.gpx in Resources */,
+				6711431B1FE15C9D00F6C4A9 /* Leidseplein.gpx in Resources */,
+				671143431FE15C9D00F6C4A9 /* Vomar.gpx in Resources */,
+				671143291FE15C9D00F6C4A9 /* Almere-Buiten.gpx in Resources */,
+				6711432A1FE15C9D00F6C4A9 /* trace_drive_France_Belgium.gpx in Resources */,
+				671143321FE15C9D00F6C4A9 /* leidseplein13.gpx in Resources */,
+				671143351FE15C9D00F6C4A9 /* trace_bus_nj_nyc.gpx in Resources */,
+				671143401FE15C9D00F6C4A9 /* Rotterdam-centrum.gpx in Resources */,
+				671143231FE15C9D00F6C4A9 /* trace-ceramplein-pathé-city-tram.gpx in Resources */,
+				6711433C1FE15C9D00F6C4A9 /* drive_zaandam_amsterdam.gpx in Resources */,
+				671143301FE15C9D00F6C4A9 /* stationary-ceramplein.gpx in Resources */,
+				6711433B1FE15C9D00F6C4A9 /* Appleton_museum_Ocala_FL.gpx in Resources */,
+				671143341FE15C9D00F6C4A9 /* 30km-to-100grams.gpx in Resources */,
+				671143411FE15C9D00F6C4A9 /* trace_transit_100grams_yerseke.gpx in Resources */,
+				6711432B1FE15C9D00F6C4A9 /* Istanbul-Airport.gpx in Resources */,
+				671143211FE15C9D00F6C4A9 /* London Holborn.gpx in Resources */,
+				6711433E1FE15C9D00F6C4A9 /* bus_ride_from_home.gpx in Resources */,
+				671143311FE15C9D00F6C4A9 /* WeteringCircuit.gpx in Resources */,
+				6711432F1FE15C9D00F6C4A9 /* Central-Park.gpx in Resources */,
+				671143201FE15C9D00F6C4A9 /* 30967.gpx in Resources */,
 				967E4B811F96255600EC6490 /* GoogleService-Info.plist in Resources */,
+				671143491FE15C9D00F6C4A9 /* Amsterdam-Centraal.gpx in Resources */,
+				6711431D1FE15C9D00F6C4A9 /* AppleStoreNYC.gpx in Resources */,
+				671143221FE15C9D00F6C4A9 /* trace-drive-IL.gpx in Resources */,
+				671143421FE15C9D00F6C4A9 /* Ceramplein 70.gpx in Resources */,
+				6711432E1FE15C9D00F6C4A9 /* 1000km-to-100grams.gpx in Resources */,
+				6711431A1FE15C9D00F6C4A9 /* Lyon-France.gpx in Resources */,
+				6711434A1FE15C9D00F6C4A9 /* tran_ride_ceramplein_tunfun.gpx in Resources */,
+				671143441FE15C9D00F6C4A9 /* LexingtonAve-Brooklyn.gpx in Resources */,
+				671143261FE15C9D00F6C4A9 /* 100grams.gpx in Resources */,
+				671143281FE15C9D00F6C4A9 /* OnTrain.gpx in Resources */,
+				671143331FE15C9D00F6C4A9 /* Time-Square.gpx in Resources */,
+				671143271FE15C9D00F6C4A9 /* 49stNYC.gpx in Resources */,
+				6711433A1FE15C9D00F6C4A9 /* hoofddorp.gpx in Resources */,
+				671143371FE15C9D00F6C4A9 /* MaidenLn.gpx in Resources */,
+				6711431F1FE15C9D00F6C4A9 /* drive-tiko-home.gpx in Resources */,
 				96BB1F571EB9C5940083630D /* Assets.xcassets in Resources */,
+				671143241FE15C9D00F6C4A9 /* 100grams_ceramplein_bike.gpx in Resources */,
 				96BB1F551EB9C5940083630D /* Main.storyboard in Resources */,
+				671143191FE15C9D00F6C4A9 /* trace_drive_new_jersey.gpx in Resources */,
+				671143391FE15C9D00F6C4A9 /* ocala-FL.gpx in Resources */,
+				671143361FE15C9D00F6C4A9 /* trace-walk-flevopark.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
